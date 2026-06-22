@@ -1,6 +1,8 @@
 export default function LoginForm() {
     return (
         <div className="loginDiv">
+            <a href="/"> &lt;&lt; I've changed my mind, take me back &gt;&gt; </a>
+
             <form className="loginForm">
                 <input type="text" className="email" placeholder="Email" />
                 <input type="password" className="password" placeholder="Password" />
