@@ -1,7 +1,7 @@
 
 const router = require(`express`).Router();
 const createError = require('http-errors')
-const productsModel = require('server/models/products.js');
+const productsModel = require('../models/products.js');
 
 router.get(`/products`, (req, res) => {
     productsModel.find()

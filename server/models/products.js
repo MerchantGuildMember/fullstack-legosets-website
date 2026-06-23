@@ -1,6 +1,6 @@
 const mongoose = require(`mongoose`)
 
-let productsSchema = new Mongoose.Schema(
+let productsSchema = new mongoose.Schema(
     {
         id: {type: Number, required: true},
         image: {type: Buffer, required: true},

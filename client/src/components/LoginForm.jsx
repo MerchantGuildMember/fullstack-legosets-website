@@ -1,7 +1,7 @@
 export default function LoginForm() {
     return (
         <div className="loginDiv">
-            <a href="/"> &lt;&lt; I've changed my mind, take me back &gt;&gt; </a>
+            <a href="/client/public"> &lt;&lt; I've changed my mind, take me back &gt;&gt; </a>
 
             <form className="loginForm">
                 <input type="text" className="email" placeholder="Email" />

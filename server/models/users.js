@@ -1,6 +1,6 @@
 const mongoose = require(`mongoose`)
 
-let usersSchema = new Mongoose.Schema(
+let usersSchema = new mongoose.Schema(
     {
         id: {type: UUID, required: true},
         profilePicture: {type: Buffer, required: false},
