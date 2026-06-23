@@ -1,0 +1,80 @@
+$font: 'Ubuntu, sans-serif';
+$headerSize: 2.4rem;
+$border-debug: 0.125rem;
+
+* {
+  font-family: $font;
+}
+
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  border-color: $border-debug;
+  font-size: $headerSize;
+}
+
+.nav {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  border-color: $border-debug;
+}
+
+.nav li {
+  display: inline-block;
+  border-color: $border-debug;
+}
+
+.nav li a,
+.nav li Link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-color: $border-debug;
+}
+
+.profileHolder {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.eggon p {
+  display: flex;
+  font-size: 2.4rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.Searchbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Searchbar input {
+  font-size: 1.2rem;
+  text-align: center;
+  width: 50vw;
+}
+
+.ProductList {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.ProductModule {
+  margin: 2rem;
+  text-decoration: none;
+  color: black;
+
+}

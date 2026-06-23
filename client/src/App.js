@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import "@fontsource/ubuntu";
 import ContentPage from './pages/ContentPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import ProductPage from './pages/ProductPage.jsx';

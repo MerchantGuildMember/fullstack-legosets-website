@@ -12,15 +12,15 @@ export default function LoadAllProducts() {
                 setProducts(response.data);
             })
 
-    })
+    }, []);
     return(
-        <>
+        <div className="ProductList">
         {products.map(product => (
                 <ContentPageProduct
                     key={product.id}
                     product={product}
                 />
             ))}
-        </>
+        </div>
     )
 }
