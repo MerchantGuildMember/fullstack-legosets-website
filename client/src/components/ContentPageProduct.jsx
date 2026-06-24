@@ -5,7 +5,7 @@ export default function ContentPageProduct( {product}) {
 
     return (
         <a className="ProductModule" href={`/product/${product.id}`}>
-            <img src={product.image} alt="product" />
+            <img src={product.image} alt="" />
 
             <div className="productInfo">
                 <div className="productTitle">{product.name}</div>

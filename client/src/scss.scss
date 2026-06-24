@@ -4,6 +4,13 @@ $border-debug: 0.125rem;
 
 * {
   font-family: $font;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ContentPage {
+  height: 100vh;
 }
 
 .Header {
@@ -65,14 +72,19 @@ $border-debug: 0.125rem;
 }
 
 .ProductList {
-  display: flex;
-  flex-direction: row;
-
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  width: 70vw;
+  height: 70%;
+  gap: 10px;
+  margin: 0 auto;
 }
 
 .ProductModule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 2rem;
   text-decoration: none;
   color: black;
