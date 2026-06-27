@@ -10,7 +10,7 @@ function randomPhrase() {
     return potentialPhrases[phrase];
 }
 
-export default function Eggon() {
+function Eggon() {
 
     return (
         <div className="eggon">
@@ -18,3 +18,5 @@ export default function Eggon() {
         </div>
     )
 }
+
+export default React.memo(Eggon)
