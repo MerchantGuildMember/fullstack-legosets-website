@@ -3,22 +3,31 @@ import ContentPageProduct from "./ContentPageProduct";
 import axios from 'axios';
 
 
-export default function LoadAllProducts() {
+export default function LoadAllProducts(props) {
+
     const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/products`)
-            .then((response) => {
-                setProducts(response.data);
-            })
+    const search = props.search
 
-    }, []);
+    useEffect(() => {
+
+        if (search === "") {
+            axios.get("http://localhost:5000/products")
+                .then(res => setProducts(res.data));
+        } else {
+            axios.get(`http://localhost:5000/products/search/${search}`)
+                .then(res => setProducts(res.data));
+        }
+
+    }, [search]);
+
     return(
         <div className="ProductList">
         {products.map(product => (
                 <ContentPageProduct
-                    key={product.id}
+                    key={product._id}
                     product={product}
+                    view={'basic'}
                 />
             ))}
         </div>
