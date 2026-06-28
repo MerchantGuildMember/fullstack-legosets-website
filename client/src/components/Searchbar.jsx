@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-export default function Searchbar(props) {
+
+export default function Searchbar( {search, setSearch} ) {
+
     return(
         <div className="Searchbar">
-            <input onChange={props.onChange} placeholder="Search..." />
+            <input className="navSearchBar"
+                   value = {search}
+                   onChange={(e) => setSearch(e.target.value)}
+                   placeholder="Search..." />
         </div>
     )
 }

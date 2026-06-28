@@ -1,13 +1,18 @@
 import React from 'react'
 import {Link} from "react-router-dom";
+import Searchbar from "./Searchbar";
 
-export default function NavBar() {
+export default function NavBar( {search, setSearch } ) {
     return(
         <div className="Header">
             <ul className="nav">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/login">Login</Link></li>
             </ul>
+            <Searchbar
+                search={search}
+                setSearch={setSearch}
+            />
             <div className="profileHolder">
                 <div className="miniPicture">
 
