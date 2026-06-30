@@ -10,10 +10,19 @@ router.get(`/products`, (req, res) => {
         })
 })
 
-router.get("products/:id", (req, res) => {
+router.get("/products/:id", (req, res) => {
     productsModel.findById(req.params.id)
         .then(product => {
             res.json(product)
+        })
+})
+
+router.get("/products/search/:string", (req, res) => {
+    const search = req.params.string
+
+    productsModel.find({ name: { $regex: search, $options: 'i' } })
+        .then(products => {
+            res.json(products)
         })
 })
 
