@@ -2,10 +2,9 @@ const mongoose = require(`mongoose`)
 
 let usersSchema = new mongoose.Schema(
     {
-        id: {type: UUID, required: true},
-        profilePicture: {type: Buffer, required: false},
         email: {type: String, required: true},
         password: {type: String, required: true},
+        profilePicture: {type: Buffer, required: false},
         admin: {type: Boolean, default: false},
     },
     {
