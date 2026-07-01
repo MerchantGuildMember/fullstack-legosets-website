@@ -1,6 +1,6 @@
 $font: 'Ubuntu, sans-serif';
 $headerSize: 2.4rem;
-$border-debug: 0.125rem;
+$border-debug: black solid 3px;
 
 * {
   font-family: $font;
@@ -19,6 +19,7 @@ $border-debug: 0.125rem;
   align-items: center;
   text-align: center;
   width: 100%;
+  background-color: #232f3e;
   border-color: $border-debug;
   font-size: $headerSize;
 }
@@ -43,6 +44,7 @@ $border-debug: 0.125rem;
   padding: 0.5rem 1rem;
   text-decoration: none;
   border-color: $border-debug;
+  color: white;
 }
 
 .profileHolder {
@@ -53,6 +55,7 @@ $border-debug: 0.125rem;
 
 .eggon p {
   display: flex;
+  margin: 0.7rem 0 0 0;
   font-size: 2.4rem;
   align-items: center;
   justify-content: center;
@@ -60,33 +63,104 @@ $border-debug: 0.125rem;
 
 .Searchbar {
   display: flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
-
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .Searchbar input {
   font-size: 1.2rem;
   text-align: center;
-  width: 50vw;
+  width: 55vw;
+  height: 2.3rem;
+  border-radius: 10px;
 }
 
 .ProductList {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  width: 70vw;
-  height: 70%;
-  gap: 10px;
-  margin: 0 auto;
-}
-
-.ProductModule {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin: 2rem;
-  text-decoration: none;
-  color: black;
+  margin-top: 2rem;
+}
+.ContentPage {
+  .ProductModule {
+    margin: 0 1rem 2rem;
+    text-decoration: none;
+    color: black;
+    background-color: #f8f8f8
+  }
+
+  .productInfo {
+    margin-left: 1.5rem;
+    font-size: 1.2rem;
+    padding: 0.5rem 0 1rem 0;
+  }
+
+  .productCost {
+    font-weight: bold;
+    padding: 0 0 0.5rem 0;
+  }
+
+
+
+
+}
+
+.ProductPage {
+  .ProductModule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .productContent {
+    border: $border-debug;
+    display: flex;
+    width: max-content;
+    margin-left: 10rem;
+    margin-right: 10rem;
+    margin-top: 5rem;
+  }
+
+  img {
+    border: $border-debug;
+    height: 600px;
+    width: auto;
+  }
+
+  .productInfo {
+    display: inline-flex;
+    margin: 1.9rem;
+    flex-direction: column;
+    align-items: center;
+
+    .productTitle {
+      font-size: 2.4rem;
+      text-align: center;
+      border-bottom: $border-debug;
+    }
+
+    .productCost {
+      font-size: 1.4rem;
+      border-bottom: $border-debug;
+    }
+
+    .aboutProduct {
+      p {
+        text-align: center;
+        font-size: 1.2rem;
+        padding-bottom: 1rem;
+      }
+
+      .productDesc {
+        font-size: 1.2rem;
+      }
+      align-content: center;
+      margin-top: 2.5rem;
+    }
+  }
+
 
 }
