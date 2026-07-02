@@ -9,13 +9,15 @@ export default function LoadAllProducts(props) {
 
     const search = props.search
 
+    const cleanSearch = search.replace(/[^a-zA-Z0-9]/g, "");
+
     useEffect(() => {
 
-        if (search === "") {
+        if (cleanSearch === "") {
             axios.get("http://localhost:5000/products")
                 .then(res => setProducts(res.data));
         } else {
-            axios.get(`http://localhost:5000/products/search/${search}`)
+            axios.get(`http://localhost:5000/products/search/${cleanSearch}`)
                 .then(res => setProducts(res.data));
         }
 
