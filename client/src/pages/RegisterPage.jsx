@@ -2,6 +2,10 @@ import RegisterForm from "../components/RegisterForm";
 
 export default function RegisterPage() {
     return (
-        <RegisterForm/>
+        <div className="RegisterPage">
+            <div className="registerDiv">
+                <RegisterForm />
+            </div>
+        </div>
     )
 }
