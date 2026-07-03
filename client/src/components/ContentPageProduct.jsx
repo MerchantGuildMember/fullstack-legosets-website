@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import BuyButton from "./BuyButton";
 
-export default function ContentPageProduct( {product, view} ) {
+export default function ContentPageProduct( {product, view, style} ) {
 
     if (view === 'basic') {
         return (
-            <a className="ProductModule" href={`/product/${product._id}`} >
+            <a className="ProductModule" href={`/product/${product._id}`} style={style} >
                 <img src={product.image} alt="" />
 
                 <div className="productInfo">

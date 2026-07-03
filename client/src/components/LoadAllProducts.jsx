@@ -25,11 +25,12 @@ export default function LoadAllProducts(props) {
 
     return(
         <div className="ProductList">
-        {products.map(product => (
+        {products.map((product, i) => (
                 <ContentPageProduct
                     key={product._id}
                     product={product}
                     view={'basic'}
+                    style={{ '--i': i }}
                 />
             ))}
         </div>
