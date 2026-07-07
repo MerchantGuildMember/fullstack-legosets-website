@@ -4,7 +4,7 @@ import Searchbar from "../components/Searchbar";
 import LoadAllProducts from "../components/LoadAllProducts";
 import Eggon from "../components/Eggon";
 
-export default function ContentPage() {
+export default function ContentPage( {isLoggedIn, setIsLoggedIn} ) {
 
     const [search, setSearch] = useState("");
 
@@ -13,6 +13,8 @@ export default function ContentPage() {
             <NavBar
                 search={search}
                 setSearch={setSearch}
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
             />
             <Eggon />
             <LoadAllProducts
