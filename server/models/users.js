@@ -2,13 +2,15 @@ const mongoose = require(`mongoose`)
 
 let usersSchema = new mongoose.Schema(
     {
-        email: {type: String, required: true},
+        email: {type: String, required: true, unique: true, lowercase: true, trim: true},
+        name: {type: String, required: true},
         password: {type: String, required: true},
         profilePicture: {type: Buffer, required: false},
-        admin: {type: Boolean, default: false},
+        accessLevel: {type: Number, default:parseInt(process.env.ACCESS_LEVEL_NORMAL_USER)}
     },
     {
-        collection: `users`
+        collection: `users`,
+        timestamps: true
     }
 )
 
