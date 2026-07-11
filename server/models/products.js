@@ -2,16 +2,25 @@ const mongoose = require(`mongoose`)
 
 let productsSchema = new mongoose.Schema(
     {
-        image: {type: String, required: true},
+        images: {
+            type: [String],
+            required: true,
+            validate: {
+                validator: (arr) => Array.isArray(arr) && arr.length > 0,
+                message: "At least one image is required"
+            }
+        },
         name: {type: String, required: true},
         price: {type: Number, required: true},
         description: {type: String, required: false},
         stock: {type: Number, required: true},
         brand: {type: String, required: true},
-        ratingCount: {type: Number, required: false},
+        pieceCount: {type: Number, required: false},
+        ratingCount: {type: Number, required: false, default: 0},
     },
     {
-        collection: `products`
+        collection: `products`,
+        timestamps: true
     }
 )
 
