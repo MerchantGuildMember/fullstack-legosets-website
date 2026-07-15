@@ -6,7 +6,7 @@ export default function Searchbar({ search, setSearch }) {
     return (
         <div className="Searchbar">
             <div className="searchInputWrapper">
-                <FaSearch className="searchIcon" />
+                <FaSearch className="searchIcon" size={18} />
                 <input
                     className="navSearchBar"
                     value={search}
