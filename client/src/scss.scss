@@ -1,6 +1,15 @@
 $font: 'Ubuntu, sans-serif';
 $headerSize: 2.4rem;
 $border-debug: black solid 3px;
+$background-color: #ebe4d4;
+
+$lego-red: #C8102E;
+$lego-red-dark: #A50D26;
+$lego-yellow: #FFD200;
+$lego-navy: #16213E;
+$lego-cream: #F6F1E4;
+$ink: #1B1B1B;
+$muted: #6F6F6F;
 
 * {
   font-family: $font;
@@ -9,104 +18,151 @@ $border-debug: black solid 3px;
   box-sizing: border-box;
 }
 
+.ContentPage,
+.ProductPage,
+.RegisterPage,
+.LoginPage,
+ html {
+  background-color: $background-color;
+  height: 100%;
+}
+
 .ContentPage {
   height: 100vh;
 }
 
 .Header {
+  position: relative;
+
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  width: 100%;
+  justify-content: space-between;
+
+  height: 4.5rem;
+  padding: 0 1.5rem;
   background-color: #232f3e;
-  border-color: $border-debug;
   font-size: $headerSize;
 }
 
 .nav {
-  list-style: none;
   display: flex;
+  align-items: center;
   gap: 1rem;
+
+  list-style: none;
   margin: 0;
   padding: 0;
-  border-color: $border-debug;
-}
-
-.nav li {
-  display: inline-block;
-  border-color: $border-debug;
 }
 
 .nav li a,
-.nav li Link {
-  display: inline-block;
+.nav li .linkButton {
+  display: flex;
+  align-items: center;
+
   padding: 0.5rem 1rem;
-  text-decoration: none;
-  border-color: $border-debug;
+
   color: white;
+  text-decoration: none;
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.profileHolder {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.eggon p {
-  display: flex;
-  margin: 0.7rem 0 0 0;
-  font-size: 2.4rem;
-  align-items: center;
-  justify-content: center;
+.nav li a:hover,
+.nav li .linkButton:hover {
+  opacity: 0.8;
 }
 
 .Searchbar {
-  display: flex;
   position: absolute;
-  justify-content: center;
-  align-items: center;
   left: 50%;
   transform: translateX(-50%);
+  width: min(60vw, 800px);
+  font-size: 1rem;
 }
 
 .searchInputWrapper {
   position: relative;
-  width: 55vw;
+  width: 100%;
 }
 
 .searchIcon {
   position: absolute;
-  left: 14px;
+  left: 16px;
   top: 50%;
-  //transform: translateY(-50%);
-  transform: scale(1.5);
-  color: #555;
-  font-size: 1rem;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #666;
   pointer-events: none;
 }
 
 .Searchbar input {
-  font-size: 1.2rem;
-  text-align: center;
-  width: 55vw;
-  height: 2.3rem;
+  width: 100%;
+  height: 40px;
+  padding-left: 48px;
+  padding-right: 16px;
+  border: none;
   border-radius: 10px;
+  font-size: 1.1rem;
+  box-sizing: border-box;
 }
 
-.navSearchBar::placeholder {
-  color: #555;
-  opacity: 1;
+.Searchbar input::placeholder {
+  color: #777;
+}
+
+.rightIcons {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 1rem;
+}
+
+.shoppingCart,
+.profileHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  text-decoration: none;
+}
+
+.shoppingCart:hover,
+.profileHolder:hover {
+  opacity: 0.8;
+}
+
+.eggon p {
+  margin: 0.7rem 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.4rem;
 }
 
 .ProductList {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(320px, 1fr));
+  gap: 20px;
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
 }
 .ContentPage {
+  .scrollSentinel {
+    height: 1px;
+  }
+
+  .productListStatus {
+    text-align: center;
+    padding: 2rem 0;
+    color: #6f6f6f;
+    font-size: 0.95rem;
+  }
+
   .ProductModule {
     margin: 0 1rem 2rem;
     text-decoration: none;
@@ -115,8 +171,17 @@ $border-debug: black solid 3px;
     box-shadow: 10px 5px 5px #8f8f8f;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     opacity: 0;
-    animation: productPopIn 0.4s ease-out forwards;
+    animation: productPopIn 0.5s forwards;
     animation-delay: calc(var(--i, 0) * 0.06s);
+    border-radius: 15px;
+
+    img {
+      border-radius: 15px;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+    }
   }
 
   .productInfo {
@@ -152,55 +217,198 @@ $border-debug: black solid 3px;
 }
 
 .ProductPage {
+  --ink: #1B2A4A;
+  --paper: #EDE6D6;
+  --paper-dark: #E0D7C2;
+  --yellow: #FFCC00;
+  --brick: #C8102E;
+
+  background: var(--paper);
+  min-height: 100vh;
+
   .ProductModule {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .productContent {
-    border: $border-debug;
     display: flex;
-    width: max-content;
-    margin-left: 10rem;
-    margin-right: 10rem;
-    margin-top: 5rem;
+    flex-wrap: wrap;
+    width: min(920px, 92vw);
+    margin: 5rem auto;
+    background: #fff;
+    border: 2px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
   }
 
-  img {
-    border: $border-debug;
-    height: 600px;
-    width: auto;
+  .productMedia {
+    position: relative;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 320px;
+
+    img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .studStrip {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 18px;
+      background-color: var(--ink);
+      background-image: radial-gradient(circle, var(--yellow) 6px, transparent 6.5px);
+      background-size: 28px 100%;
+      background-position: 14px center;
+      background-repeat: repeat-x;
+    }
   }
 
   .productInfo {
-    display: inline-flex;
-    margin: 1.9rem;
+    flex: 1 1 320px;
+    padding: 2.5rem 2.75rem;
+    display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 1.1rem;
 
-    .productTitle {
-      font-size: 2.4rem;
-      text-align: center;
-      border-bottom: $border-debug;
+    .productEyebrow {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brick);
     }
 
-    .productCost {
-      font-size: 1.4rem;
-      border-bottom: $border-debug;
+    .productTitle {
+      font-family: 'Roboto Slab', 'Georgia', serif;
+      font-size: 2.1rem;
+      line-height: 1.15;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .priceTag {
+      align-self: flex-start;
+      background: var(--yellow);
+      border: 2px solid var(--ink);
+      border-radius: 3px;
+      padding: 0.3rem 0.9rem;
+      transform: rotate(-3deg);
+      box-shadow: 3px 3px 0 var(--ink);
+
+      .priceTagValue {
+        font-family: 'IBM Plex Mono', 'Courier New', monospace;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--brick);
+      }
+    }
+
+    .specSheet {
+      display: flex;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 0.75rem 0;
+
+      .specCell {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border-right: 1px solid #d8d0be;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        .specValue {
+          font-family: 'IBM Plex Mono', 'Courier New', monospace;
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: var(--ink);
+        }
+
+        .specLabel {
+          font-size: 0.7rem;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #6b6353;
+          margin-top: 0.15rem;
+        }
+      }
     }
 
     .aboutProduct {
-      p {
-        text-align: center;
-        font-size: 1.2rem;
-        padding-bottom: 1rem;
+      .aboutLabel {
+        font-size: 0.75rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #6b6353;
+        margin: 0 0 0.4rem;
       }
 
       .productDesc {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--ink);
+        margin: 0;
       }
-      align-content: center;
-      margin-top: 2.5rem;
+    }
+  }
+
+  .BuyButton, button {
+    position: relative;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    background: var(--brick);
+    color: #fff;
+    border: none;
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #8a0b20;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--brick);
+    }
+    &::before { left: 18%; }
+    &::after { left: 62%; }
+
+    &:hover {
+      background: #b30d29;
+    }
+    &:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #8a0b20;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .productContent {
+      width: 94vw;
+      margin: 2rem auto;
+    }
+    .productMedia img {
+      height: 320px;
     }
   }
 }
@@ -338,6 +546,15 @@ $border-debug: black solid 3px;
     &::placeholder {
       color: #777;
     }
+
+    &.inputError {
+      border-color: #d32f2f;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+      }
+    }
   }
 
   input[type="submit"] {
@@ -351,6 +568,23 @@ $border-debug: black solid 3px;
     &:hover {
       background: #2c3e50;
     }
+  }
+
+  .fieldError {
+    margin-top: -0.6rem;
+    color: #d32f2f;
+    font-size: 0.85rem;
+  }
+
+  .formError {
+    margin-top: 0.25rem;
+    padding: 0.6rem 0.75rem;
+    background: #fdecea;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    color: #611a15;
+    font-size: 0.9rem;
+    text-align: center;
   }
 }
 
@@ -369,4 +603,540 @@ $border-debug: black solid 3px;
   border: $border-debug;
   width: 0.4rem;
   height: 0.4rem;
+}
+
+$paper: #FCFBF8;
+$ink: #17140F;
+$inkSoft: #5C574F;
+$hairline: #E2DCCF;
+$hairlineStrong: #CFC7B6;
+$secure: #8F2A1E;
+$secureSoft: #8F2A1E1a;
+$confirm: #3B6650;
+$confirmSoft: #3B66501a;
+
+.ProfilePage {
+  min-height: 100vh;
+  width: 100%;
+  background: $paper;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.25rem;
+  box-sizing: border-box;
+  font-family: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: $ink;
+}
+
+.ProfilePageWrapper {
+  width: 100%;
+  max-width: 460px;
+}
+
+.Greeting {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 2.1rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 2.75rem 0;
+  text-align: center;
+}
+
+.GreetingName {
+  color: $ink;
+}
+
+.ProfileMenu {
+  border-top: 1px solid $hairline;
+}
+
+.entry {
+  border-bottom: 1px solid $hairline;
+}
+
+.Row {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 0.15rem;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.RowText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.RowLabel {
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.RowCurrent {
+  font-size: 0.82rem;
+  color: $inkSoft;
+}
+
+.RowRight {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.RowTag {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $secure;
+  border: 1px solid $secure;
+  border-radius: 3px;
+  padding: 0.15rem 0.4rem;
+  opacity: 0.85;
+}
+
+.Chevron {
+  transition: transform 0.25s ease;
+  color: $inkSoft;
+  flex-shrink: 0;
+}
+
+.ChevronOpen {
+  transform: rotate(180deg);
+}
+
+.OuterPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.OuterPanelOpen {
+  grid-template-rows: 1fr;
+}
+
+.InnerPanel {
+  overflow: hidden;
+}
+
+.Panel {
+  padding: 0.35rem 0.15rem 1.6rem 0.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: panelFadeIn 0.3s ease 0.05s both;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.Stamp {
+  align-self: flex-start;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $secure;
+  border: 1.5px solid $secure;
+  border-radius: 3px;
+  padding: 0.3rem 0.55rem;
+  transform: rotate(-2deg);
+  margin-bottom: 0.15rem;
+}
+
+.Field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.FieldLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $inkSoft;
+  font-weight: 600;
+}
+
+.Static {
+  font-size: 0.92rem;
+  color: $ink;
+  background: #F4F1E9;
+  border: 1px solid $hairline;
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+}
+
+.InputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.Input {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 0.55rem 2.3rem 0.55rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid $hairlineStrong;
+  background: #fff;
+  color: $ink;
+  outline: none;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    border-color: $ink;
+  }
+}
+
+.inputMismatch {
+  border-color: $secure;
+}
+
+.inputMatch {
+  border-color: $confirm;
+}
+
+.Reveal {
+  position: absolute;
+  right: 0.55rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $inkSoft;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+}
+
+.MatchDot {
+  position: absolute;
+  right: 0.6rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.2s ease;
+}
+
+.Match-match {
+  background: $confirm;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.Match-mismatch {
+  background: $secure;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.MatchText {
+  font-size: 0.76rem;
+  color: $inkSoft;
+}
+
+.MatchText-match {
+  color: $confirm;
+}
+
+.MatchText-mismatch {
+  color: $secure;
+}
+
+.Actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.GhostButton {
+  font: inherit;
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  color: $inkSoft;
+  cursor: pointer;
+  padding: 0.5rem 0.6rem;
+
+  &:hover {
+    color: $ink;
+  }
+}
+
+.SecureButton {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  border: none;
+  background: $hairline;
+  color: $inkSoft;
+  cursor: not-allowed;
+  transition: all 0.2s ease;
+}
+
+.SecureButtonReady {
+  background: $secure;
+  color: #fff;
+  cursor: pointer;
+}
+
+.SecureButtonSaved {
+  background: $confirm;
+}
+
+// Ring (circular progress) button
+.RingButton {
+  position: relative;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.55rem;
+  border-radius: 999px;
+  border: none;
+  background: $hairline;
+  color: $inkSoft;
+  cursor: not-allowed;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.RingButtonReady {
+  background: $ink;
+  color: #fff;
+  cursor: pointer;
+}
+
+.RingButtonSaved {
+  background: $confirm;
+  color: #fff;
+}
+
+.RingSVG {
+  width: 20px;
+  height: 20px;
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+
+.RingTrack {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.12);
+  stroke-width: 3;
+}
+
+.RingButtonReady .RingTrack,
+.RingButtonSaved .RingTrack {
+  stroke: rgba(255, 255, 255, 0.25);
+}
+
+.RingProgress {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.RingButtonLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.PhotoRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.PhotoCol {
+  align-items: center;
+}
+
+.PhotoArrow {
+  color: $hairlineStrong;
+  font-size: 1.2rem;
+  padding-bottom: 0.9rem;
+}
+
+.Avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+
+.AvatarOld {
+  background: #F4F1E9;
+  border: 1px solid $hairline;
+  color: $inkSoft;
+}
+
+.AvatarNew {
+  background: #fff;
+  border: 1.5px dashed $hairlineStrong;
+  color: $inkSoft;
+  cursor: pointer;
+  padding: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 420px) {
+  .Greeting {
+    font-size: 1.7rem;
+  }
+}
+
+.blur {
+  filter: blur(500px);
+}
+
+.CartPage {
+  background-color: $background-color;
+  min-height: 100vh;
+}
+
+.cartContent {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.cartHeading {
+  font-size: $headerSize;
+  margin-bottom: 1.5rem;
+}
+
+.cartMessage {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.cartList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.CartItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: #f8f8f8;
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 5px 5px 5px #8f8f8f;
+
+  img {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.cartItemInfo {
+  flex: 1;
+}
+
+.cartItemTitle {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.cartItemPrice {
+  color: #444;
+  margin: 0.3rem 0;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+
+  button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background-color: #232f3e;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: #b00020;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 0.95rem;
+}
+
+.cartSummary {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cartTotal {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.checkoutButton {
+  background-color: #232f3e;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+  }
 }
