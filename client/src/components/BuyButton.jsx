@@ -27,7 +27,6 @@ export default function BuyButton({ product }) {
                 { headers }
             );
             setStatus('added');
-            // reset the "Added!" confirmation after a couple seconds
             setTimeout(() => setStatus('idle'), 2000);
         } catch (err) {
             console.error(err);
