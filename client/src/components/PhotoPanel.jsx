@@ -1,48 +1,74 @@
 import {useRef, useState} from "react";
 import useCountdown from "./useCountdown";
-import { ChevronDown, Check, X, Eye, EyeOff, ImagePlus } from "lucide-react";
+import { Check, ImagePlus } from "lucide-react";
+import { validatePhotoFile } from "../utils/validators";
 
-export default function PhotoPanel({ onClose }) {
+export default function PhotoPanel({ onClose, onSave }) {
     const [preview, setPreview] = useState(null);
     const [saved, setSaved] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [fileError, setFileError] = useState("");
+    const [submitError, setSubmitError] = useState("");
     const fileRef = useRef(null);
-    const ready = !!preview;
+    const ready = !!preview && !fileError;
     const remaining = useCountdown(ready, 4);
-    const canSave = ready && remaining <= 0;
+    const canSave = ready && remaining <= 0 && !saving;
     const pct = ready ? ((4 - remaining) / 4) * 100 : 0;
 
     const handleFile = (e) => {
         const f = e.target.files?.[0];
+        e.target.value = ""; // allow re-selecting the same file after an error
+
         if (!f) return;
+
+        const error = validatePhotoFile(f);
+        if (error) {
+            setFileError(error);
+            setPreview(null);
+            return;
+        }
+
+        setFileError("");
+        setSubmitError("");
         const reader = new FileReader();
         reader.onload = () => setPreview(reader.result);
+        reader.onerror = () => setFileError("Couldn't read that file. Please try another.");
         reader.readAsDataURL(f);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!canSave) return;
-        setSaved(true);
-        setTimeout(() => {
-            setSaved(false);
-            onClose();
-        }, 1100);
+        setSaving(true);
+        setSubmitError("");
+        try {
+            if (onSave) await onSave(preview);
+            setSaved(true);
+            setTimeout(() => {
+                setSaved(false);
+                onClose();
+            }, 1100);
+        } catch (err) {
+            setSubmitError(err?.message || "Something went wrong. Please try again.");
+        } finally {
+            setSaving(false);
+        }
     };
 
     return (
-        <div className="Panel">
-            <div className="PhotoRow">
-                <div className="Field PhotoCol">
-                    <label className="FieldLabel">Current photo</label>
-                    <div className="Avatar AvatarOld">U</div>
+        <div className="ac_panel">
+            <div className="ac_photoRow">
+                <div className="ac_field ac_photoCol">
+                    <label className="ac_fieldLabel">Current photo</label>
+                    <div className="ac_avatar ac_avatarOld">U</div>
                 </div>
 
-                <div className="PhotoArrow">&rarr;</div>
+                <div className="ac_photoArrow">&rarr;</div>
 
-                <div className="Field PhotoCol">
-                    <label className="FieldLabel">New photo</label>
+                <div className="ac_field ac_photoCol">
+                    <label className="ac_fieldLabel">New photo</label>
                     <button
                         type="button"
-                        className="Avatar AvatarNew"
+                        className="ac_avatar ac_avatarNew"
                         onClick={() => fileRef.current?.click()}
                     >
                         {preview ? (
@@ -55,21 +81,24 @@ export default function PhotoPanel({ onClose }) {
                 </div>
             </div>
 
-            <div className="Actions">
-                <button type="button" className="GhostButton" onClick={onClose}>
+            {fileError && <span className="ac_fieldError">{fileError}</span>}
+            {submitError && <div className="ac_formError">{submitError}</div>}
+
+            <div className="ac_actions">
+                <button type="button" className="ac_ghostButton" onClick={onClose}>
                     Cancel
                 </button>
                 <button
                     type="button"
-                    className={"RingButton" + (canSave ? " RingButtonReady" : "") + (saved ? " RingButtonSaved" : "")}
+                    className={"ac_ringButton" + (canSave ? " ac_ringButtonReady" : "") + (saved ? " ac_ringButtonSaved" : "")}
                     onClick={handleSave}
                     disabled={!canSave}
                 >
-                    <svg className="RingSVG" viewBox="0 0 40 40">
-                        <circle className="RingTrack" cx="20" cy="20" r="17" />
-                        {ready && !canSave && (
+                    <svg className="ac_ringSvg" viewBox="0 0 40 40">
+                        <circle className="ac_ringTrack" cx="20" cy="20" r="17" />
+                        {ready && !canSave && !saving && (
                             <circle
-                                className="RingProgress"
+                                className="ac_ringProgress"
                                 cx="20"
                                 cy="20"
                                 r="17"
@@ -78,11 +107,13 @@ export default function PhotoPanel({ onClose }) {
                             />
                         )}
                     </svg>
-                    <span className="RingButtonLabel">
+                    <span className="ac_ringButtonLabel">
             {saved ? (
                 <>
                     <Check size={14} strokeWidth={2.5} /> Saved
                 </>
+            ) : saving ? (
+                "Saving..."
             ) : ready && !canSave ? (
                 `Confirming in ${remaining}s`
             ) : (
