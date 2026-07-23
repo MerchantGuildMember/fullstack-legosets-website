@@ -25,8 +25,8 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn, ...props }) {
     }
 
     return (
-        <div className="LoginPage">
-            <div className="loginDiv">
+        <div className="ac_loginPage">
+            <div className="ac_loginDiv">
                 {!isLoggedIn && (
                     <LoginForm
                         handleSubmit={handleSubmit}

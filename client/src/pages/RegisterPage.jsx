@@ -94,11 +94,11 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="RegisterPage">
-            <div className="registerDiv">
+        <div className="ac_registerPage">
+            <div className="ac_registerDiv">
                 {isRegistered ? (
-                    <div className="registerSuccess">
-                        <h1 className="registerHeading">You're all set!</h1>
+                    <div className="ac_registerSuccess">
+                        <h1 className="ac_registerHeading">You're all set!</h1>
                         <p>Your account has been created successfully.</p>
                         <a href="/">&lt;&lt; Continue &gt;&gt;</a>
                     </div>

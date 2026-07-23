@@ -1,4 +1,10 @@
-$font: 'Ubuntu, sans-serif';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+$font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+$font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+$font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Courier New', monospace;
+
+$font: $font-sans;
 $headerSize: 2.4rem;
 $border-debug: black solid 3px;
 $background-color: #ebe4d4;
@@ -8,8 +14,115 @@ $lego-red-dark: #A50D26;
 $lego-yellow: #FFD200;
 $lego-navy: #16213E;
 $lego-cream: #F6F1E4;
-$ink: #1B1B1B;
+$ink-general: #1B1B1B;
 $muted: #6F6F6F;
+
+$primary-dark: #232f3e;
+$card-bg: #f8f8f8;
+$shadow-color: #8f8f8f;
+$white: #fff;
+$border-light: #ddd;
+$border-input: #ccc;
+$submit-bg: #1e2a3a;
+$submit-hover: #2c3e50;
+$placeholder-color: #777;
+$gray-medium: #666;
+$link-color: #555;
+$remove-color: #b00020;
+$price-color: #444;
+$error-color: #D32F2F;
+$error-bg: #fdecea;
+$error-border: #f5c6cb;
+$error-text: #611a15;
+
+$profile-paper: #FCFBF8;
+$profile-ink: #17140F;
+$profile-inkSoft: #5C574F;
+$profile-hairline: #E2DCCF;
+$profile-hairlineStrong: #CFC7B6;
+$profile-secure: #8F2A1E;
+$profile-secureSoft: #8F2A1E1a;
+$profile-confirm: #3B6650;
+$profile-confirmSoft: #3B66501a;
+
+$checkout-ink: #1f2430;
+$checkout-ink-soft: #565b68;
+$checkout-navy: #1b2a41;
+$checkout-parchment: #ece4d3;
+$checkout-parchment-deep: #ddd2b8;
+$checkout-card: #fffdf8;
+$checkout-brick: #c23b2e;
+$checkout-brick-dark: #a12f24;
+$checkout-border: #d9cfb8;
+$checkout-error: #b3261e;
+
+%flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%flex-align {
+  display: flex;
+  align-items: center;
+}
+
+%flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+%flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+%input-base {
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid $border-input;
+  border-radius: 6px;
+  font-size: 1rem;
+
+  &::placeholder {
+    color: $placeholder-color;
+  }
+}
+
+%submit-btn {
+  margin-top: 0.5rem;
+  background: $submit-bg;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    background: $submit-hover;
+  }
+}
+
+%opacity-hover {
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+%card-shadow {
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px $shadow-color;
+}
+
+%text-serif {
+  font-family: $font-serif;
+}
+
+%text-mono {
+  font-family: $font-mono;
+}
 
 * {
   font-family: $font;
@@ -18,63 +131,51 @@ $muted: #6F6F6F;
   box-sizing: border-box;
 }
 
-.ContentPage,
-.ProductPage,
-.RegisterPage,
-.LoginPage,
- html {
+.ac_contentPage,
+.ac_productPage,
+.ac_registerPage,
+.ac_loginPage,
+.ac_profilePage,
+html {
   background-color: $background-color;
   height: 100%;
 }
 
-.ContentPage {
+.ac_contentPage {
   height: 100vh;
 }
 
-.Header {
+.ac_header {
+  @extend %flex-between;
   position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
   height: 4.5rem;
   padding: 0 1.5rem;
-  background-color: #232f3e;
+  background-color: $primary-dark;
   font-size: $headerSize;
 }
 
-.nav {
-  display: flex;
-  align-items: center;
+.ac_nav {
+  @extend %flex-align;
   gap: 1rem;
-
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.nav li a,
-.nav li .linkButton {
-  display: flex;
-  align-items: center;
-
+.ac_nav li a,
+.ac_nav li .ac_linkButton {
+  @extend %flex-align;
   padding: 0.5rem 1rem;
-
-  color: white;
+  color: $white;
   text-decoration: none;
   font: inherit;
   background: none;
   border: none;
   cursor: pointer;
+  @extend %opacity-hover;
 }
 
-.nav li a:hover,
-.nav li .linkButton:hover {
-  opacity: 0.8;
-}
-
-.Searchbar {
+.ac_searchbar {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -82,23 +183,23 @@ $muted: #6F6F6F;
   font-size: 1rem;
 }
 
-.searchInputWrapper {
+.ac_searchInputWrapper {
   position: relative;
   width: 100%;
 }
 
-.searchIcon {
+.ac_searchIcon {
   position: absolute;
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
   width: 18px;
   height: 18px;
-  color: #666;
+  color: $gray-medium;
   pointer-events: none;
 }
 
-.Searchbar input {
+.ac_searchbar input {
   width: 100%;
   height: 40px;
   padding-left: 48px;
@@ -107,43 +208,154 @@ $muted: #6F6F6F;
   border-radius: 10px;
   font-size: 1.1rem;
   box-sizing: border-box;
+
+  &::placeholder {
+    color: $placeholder-color;
+  }
 }
 
-.Searchbar input::placeholder {
-  color: #777;
-}
-
-.rightIcons {
-  display: flex;
-  align-items: center;
+.ac_rightIcons {
+  @extend %flex-align;
   justify-self: end;
   gap: 1rem;
 }
 
-.shoppingCart,
-.profileHolder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: white;
+.ac_shoppingCart,
+.ac_profileHolder {
+  @extend %flex-center;
+  color: $white;
   text-decoration: none;
+  @extend %opacity-hover;
 }
 
-.shoppingCart:hover,
-.profileHolder:hover {
-  opacity: 0.8;
-}
-
-.eggon p {
+.ac_eggon p {
   margin: 0.7rem 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %flex-center;
   font-size: 2.4rem;
 }
 
-.ProductList {
+.ac_filterSortBar {
+  max-width: 1600px;
+  margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.ac_filterSortRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.ac_filterToggle {
+  @extend %flex-center;
+  height: 2.5rem;
+  padding: 0 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: $primary-dark;
+  color: $white;
+  font-weight: 600;
+  cursor: pointer;
+  @extend %opacity-hover;
+}
+
+.ac_sortSelectWrapper {
+  @extend %flex-align;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: $muted;
+  font-weight: 500;
+}
+
+.ac_sortSelect {
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid $border-input;
+  border-radius: 8px;
+  background-color: $white;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.ac_clearFilters {
+  background: none;
+  border: none;
+  color: $link-color;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.ac_filterPanel {
+  @extend %card-shadow;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 1rem auto 0;
+  padding: 1.25rem 1.5rem;
+  background-color: $card-bg;
+  width: fit-content;
+}
+
+.ac_filterGroup {
+  min-width: 180px;
+
+  h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $muted;
+    margin-bottom: 0.6rem;
+  }
+}
+
+.ac_filterBrandList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.ac_filterEmpty {
+  font-size: 0.85rem;
+  color: $muted;
+}
+
+.ac_filterCheckbox {
+  @extend %flex-align;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  input {
+    cursor: pointer;
+  }
+}
+
+.ac_filterPriceRange {
+  @extend %flex-align;
+  gap: 0.5rem;
+
+  input {
+    @extend %input-base;
+    width: 80px;
+    height: 2.25rem;
+    padding: 0 0.5rem;
+  }
+
+  span {
+    color: $muted;
+  }
+}
+
+.ac_productList {
   display: grid;
   grid-template-columns: repeat(5, minmax(320px, 1fr));
   gap: 20px;
@@ -151,24 +363,25 @@ $muted: #6F6F6F;
   justify-content: center;
   margin-top: 2rem;
 }
-.ContentPage {
-  .scrollSentinel {
+
+.ac_contentPage {
+  .ac_scrollSentinel {
     height: 1px;
   }
 
-  .productListStatus {
+  .ac_productListStatus {
     text-align: center;
     padding: 2rem 0;
-    color: #6f6f6f;
+    color: $muted;
     font-size: 0.95rem;
   }
 
-  .ProductModule {
+  .ac_productModule {
     margin: 0 1rem 2rem;
     text-decoration: none;
     color: black;
-    background-color: #f8f8f8;
-    box-shadow: 10px 5px 5px #8f8f8f;
+    background-color: $card-bg;
+    box-shadow: 10px 5px 5px $shadow-color;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     opacity: 0;
     animation: productPopIn 0.5s forwards;
@@ -182,26 +395,26 @@ $muted: #6F6F6F;
       object-fit: cover;
       display: block;
     }
+
+    &:hover {
+      transform: scale(1.05);
+      transform-origin: bottom;
+      box-shadow: 5px 5px 10px 2px rgb(0 0 0 / 0.8);
+    }
   }
 
-  .productInfo {
+  .ac_productInfo {
     margin-left: 1.5rem;
     font-size: 1.2rem;
     padding: 0.5rem 0 1rem 0;
   }
 
-  .productCost {
+  .ac_productCost {
     padding: 0 0 0.5rem 0;
   }
 
-  .productTitle {
+  .ac_productTitle {
     font-weight: bold;
-  }
-
-  .ProductModule:hover {
-    transform: scale(1.05);
-    transform-origin: bottom;
-    box-shadow: 5px 5px 10px 2px rgb(0 0 0 / 0.8);
   }
 }
 
@@ -216,7 +429,7 @@ $muted: #6F6F6F;
   }
 }
 
-.ProductPage {
+.ac_productPage {
   --ink: #1B2A4A;
   --paper: #EDE6D6;
   --paper-dark: #E0D7C2;
@@ -226,28 +439,24 @@ $muted: #6F6F6F;
   background: var(--paper);
   min-height: 100vh;
 
-  .ProductModule {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .ac_productModule {
+    @extend %flex-center;
   }
 
-  .productContent {
+  .ac_productContent {
     display: flex;
     flex-wrap: wrap;
     width: min(920px, 92vw);
     margin: 5rem auto;
-    background: #fff;
+    background: $white;
     border: 2px solid var(--ink);
     box-shadow: 8px 8px 0 var(--ink);
   }
 
-  .productMedia {
+  .ac_productMedia {
     position: relative;
     background: var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @extend %flex-center;
     flex: 1 1 320px;
 
     img {
@@ -257,7 +466,7 @@ $muted: #6F6F6F;
       display: block;
     }
 
-    .studStrip {
+    .ac_studStrip {
       position: absolute;
       left: 0;
       right: 0;
@@ -271,30 +480,30 @@ $muted: #6F6F6F;
     }
   }
 
-  .productInfo {
+  .ac_productInfo {
     flex: 1 1 320px;
     padding: 2.5rem 2.75rem;
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
 
-    .productEyebrow {
-      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    .ac_productEyebrow {
+      @extend %text-mono;
       font-size: 0.8rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--brick);
     }
 
-    .productTitle {
-      font-family: 'Roboto Slab', 'Georgia', serif;
+    .ac_productTitle {
+      @extend %text-serif;
       font-size: 2.1rem;
       line-height: 1.15;
       color: var(--ink);
       margin: 0;
     }
 
-    .priceTag {
+    .ac_priceTag {
       align-self: flex-start;
       background: var(--yellow);
       border: 2px solid var(--ink);
@@ -303,21 +512,21 @@ $muted: #6F6F6F;
       transform: rotate(-3deg);
       box-shadow: 3px 3px 0 var(--ink);
 
-      .priceTagValue {
-        font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      .ac_priceTagValue {
+        @extend %text-mono;
         font-weight: 700;
         font-size: 1.15rem;
         color: var(--brick);
       }
     }
 
-    .specSheet {
+    .ac_specSheet {
       display: flex;
       border-top: 1px solid var(--ink);
       border-bottom: 1px solid var(--ink);
       padding: 0.75rem 0;
 
-      .specCell {
+      .ac_specCell {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -329,14 +538,14 @@ $muted: #6F6F6F;
           border-right: none;
         }
 
-        .specValue {
-          font-family: 'IBM Plex Mono', 'Courier New', monospace;
+        .ac_specValue {
+          @extend %text-mono;
           font-size: 1.3rem;
           font-weight: 700;
           color: var(--ink);
         }
 
-        .specLabel {
+        .ac_specLabel {
           font-size: 0.7rem;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -346,8 +555,8 @@ $muted: #6F6F6F;
       }
     }
 
-    .aboutProduct {
-      .aboutLabel {
+    .ac_aboutProduct {
+      .ac_aboutLabel {
         font-size: 0.75rem;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -355,7 +564,7 @@ $muted: #6F6F6F;
         margin: 0 0 0.4rem;
       }
 
-      .productDesc {
+      .ac_productDesc {
         font-size: 1rem;
         line-height: 1.5;
         color: var(--ink);
@@ -364,14 +573,15 @@ $muted: #6F6F6F;
     }
   }
 
-  .BuyButton, button {
+  .ac_buyButton,
+  button {
     position: relative;
     align-self: flex-start;
     margin-top: 0.5rem;
     background: var(--brick);
-    color: #fff;
+    color: $white;
     border: none;
-    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    @extend %text-mono;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -381,7 +591,8 @@ $muted: #6F6F6F;
     cursor: pointer;
     box-shadow: 0 4px 0 #8a0b20;
 
-    &::before, &::after {
+    &::before,
+    &::after {
       content: '';
       position: absolute;
       top: -8px;
@@ -390,8 +601,12 @@ $muted: #6F6F6F;
       border-radius: 50%;
       background: var(--brick);
     }
-    &::before { left: 18%; }
-    &::after { left: 62%; }
+    &::before {
+      left: 18%;
+    }
+    &::after {
+      left: 62%;
+    }
 
     &:hover {
       background: #b30d29;
@@ -403,31 +618,31 @@ $muted: #6F6F6F;
   }
 
   @media (max-width: 640px) {
-    .productContent {
+    .ac_productContent {
       width: 94vw;
       margin: 2rem auto;
     }
-    .productMedia img {
+    .ac_productMedia img {
       height: 320px;
     }
   }
 }
 
-.loginDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.ac_loginDiv {
+  @extend %flex-col-center;
   min-height: 80vh;
   gap: 1.5rem;
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: popintoexistence;
 
-  .loginHeading {
-    font-family: serif;
+  .ac_loginHeading {
+    @extend %text-serif;
     margin: 0;
   }
 
   a {
-    color: #555;
+    color: $link-color;
     text-decoration: none;
     font-size: 0.95rem;
 
@@ -437,45 +652,22 @@ $muted: #6F6F6F;
   }
 }
 
-.loginDiv {
-  animation-duration: 0.25s;
-  animation-timing-function: ease-out;
-  animation-name: popintoexistence;
-}
-
-.loginForm {
+.ac_loginForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 320px;
   padding: 2.5rem 2rem;
   background: #f4f4f4;
-  border: 1px solid #ddd;
+  border: 1px solid $border-light;
   border-radius: 10px;
 
   input {
-    height: 2.5rem;
-    padding: 0 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-
-    &::placeholder {
-      color: #777;
-    }
+    @extend %input-base;
   }
 
   input[type="submit"] {
-    margin-top: 0.5rem;
-    background: #1e2a3a;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-
-    &:hover {
-      background: #2c3e50;
-    }
+    @extend %submit-btn;
   }
 }
 
@@ -490,27 +682,27 @@ $muted: #6F6F6F;
   }
 }
 
-.loginHeading {
+.ac_loginHeading {
   text-align: center;
-  font-family: serif;
+  @extend %text-serif;
   margin-top: 2rem;
 }
 
-.registerDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.ac_registerDiv {
+  @extend %flex-col-center;
   min-height: 80vh;
   gap: 1.5rem;
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: popintoexistence;
 
-  .registerHeading {
-    font-family: serif;
+  .ac_registerHeading {
+    @extend %text-serif;
     margin: 0;
   }
 
   a {
-    color: #555;
+    color: $link-color;
     text-decoration: none;
     font-size: 0.95rem;
 
@@ -520,35 +712,21 @@ $muted: #6F6F6F;
   }
 }
 
-.registerDiv {
-  animation-duration: 0.25s;
-  animation-timing-function: ease-out;
-  animation-name: popintoexistence;
-}
-
-.registerForm {
+.ac_registerForm {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 320px;
   padding: 2.5rem 2rem;
   background: #f4f4f4;
-  border: 1px solid #ddd;
+  border: 1px solid $border-light;
   border-radius: 10px;
 
   input {
-    height: 2.5rem;
-    padding: 0 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
+    @extend %input-base;
 
-    &::placeholder {
-      color: #777;
-    }
-
-    &.inputError {
-      border-color: #d32f2f;
+    &.ac_inputError {
+      border-color: $error-color;
 
       &:focus {
         outline: none;
@@ -558,83 +736,61 @@ $muted: #6F6F6F;
   }
 
   input[type="submit"] {
-    margin-top: 0.5rem;
-    background: #1e2a3a;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-
-    &:hover {
-      background: #2c3e50;
-    }
+    @extend %submit-btn;
   }
 
-  .fieldError {
+  .ac_fieldError {
     margin-top: -0.6rem;
-    color: #d32f2f;
+    color: $error-color;
     font-size: 0.85rem;
   }
 
-  .formError {
+  .ac_formError {
     margin-top: 0.25rem;
     padding: 0.6rem 0.75rem;
-    background: #fdecea;
-    border: 1px solid #f5c6cb;
+    background: $error-bg;
+    border: 1px solid $error-border;
     border-radius: 6px;
-    color: #611a15;
+    color: $error-text;
     font-size: 0.9rem;
     text-align: center;
   }
 }
 
-.registerHeading {
+.ac_registerHeading {
   text-align: center;
-  font-family: serif;
+  @extend %text-serif;
   margin-top: 2rem;
 }
 
-.ScrollerWrapper {
+.ac_scrollerWrapper {
   border: $border-debug;
   background: #ffd8d8;
 }
 
-.diamond {
+.ac_diamond {
   border: $border-debug;
   width: 0.4rem;
   height: 0.4rem;
 }
 
-$paper: #FCFBF8;
-$ink: #17140F;
-$inkSoft: #5C574F;
-$hairline: #E2DCCF;
-$hairlineStrong: #CFC7B6;
-$secure: #8F2A1E;
-$secureSoft: #8F2A1E1a;
-$confirm: #3B6650;
-$confirmSoft: #3B66501a;
-
-.ProfilePage {
+.ac_profilePage {
   min-height: 100vh;
   width: 100%;
-  background: $paper;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend %flex-center;
   padding: 6rem 1.25rem;
   box-sizing: border-box;
-  font-family: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-  color: $ink;
+  font-family: $font-sans;
+  color: $profile-ink;
 }
 
-.ProfilePageWrapper {
+.ac_profilePageWrapper {
   width: 100%;
   max-width: 460px;
 }
 
-.Greeting {
-  font-family: Georgia, "Times New Roman", serif;
+.ac_greeting {
+  @extend %text-serif;
   font-weight: 700;
   font-size: 2.1rem;
   letter-spacing: -0.01em;
@@ -642,320 +798,340 @@ $confirmSoft: #3B66501a;
   text-align: center;
 }
 
-.GreetingName {
-  color: $ink;
+.ac_greetingName {
+  color: $profile-ink;
 }
 
-.ProfileMenu {
-  border-top: 1px solid $hairline;
+.ac_profileMenu {
+  border-top: 1px solid $profile-hairline;
 }
 
-.entry {
-  border-bottom: 1px solid $hairline;
+.ac_entry {
+  border-bottom: 1px solid $profile-hairline;
 }
 
-.Row {
+.ac_row {
   width: 100%;
   background: none;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @extend %flex-between;
   padding: 1.1rem 0.15rem;
   font: inherit;
   color: inherit;
   text-align: left;
 }
 
-.RowText {
+.ac_rowText {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
 }
 
-.RowLabel {
+.ac_rowLabel {
   font-weight: 600;
   font-size: 0.98rem;
 }
 
-.RowCurrent {
+.ac_rowCurrent {
   font-size: 0.82rem;
-  color: $inkSoft;
+  color: $profile-inkSoft;
 }
 
-.RowRight {
-  display: flex;
-  align-items: center;
+.ac_rowRight {
+  @extend %flex-align;
   gap: 0.6rem;
 }
 
-.RowTag {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+.ac_rowTag {
+  @extend %text-mono;
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: $secure;
-  border: 1px solid $secure;
+  color: $profile-secure;
+  border: 1px solid $profile-secure;
   border-radius: 3px;
   padding: 0.15rem 0.4rem;
   opacity: 0.85;
 }
 
-.Chevron {
+.ac_chevron {
   transition: transform 0.25s ease;
-  color: $inkSoft;
+  color: $profile-inkSoft;
   flex-shrink: 0;
 }
 
-.ChevronOpen {
+.ac_chevronOpen {
   transform: rotate(180deg);
 }
 
-.OuterPanel {
+.ac_outerPanel {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.OuterPanelOpen {
+.ac_outerPanelOpen {
   grid-template-rows: 1fr;
 }
 
-.InnerPanel {
+.ac_innerPanel {
   overflow: hidden;
 }
 
-.Panel {
+.ac_panel {
   padding: 0.35rem 0.15rem 1.6rem 0.15rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   animation: panelFadeIn 0.3s ease 0.05s both;
+
+  .ac_inputError {
+    border-color: $error-color;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+    }
+  }
+
+  .ac_fieldError {
+    margin-top: -0.2rem;
+    color: $error-color;
+    font-size: 0.82rem;
+  }
+
+  .ac_formError {
+    padding: 0.6rem 0.75rem;
+    background: $error-bg;
+    border: 1px solid $error-border;
+    border-radius: 6px;
+    color: $error-text;
+    font-size: 0.88rem;
+    text-align: center;
+  }
 }
 
 @keyframes panelFadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.Stamp {
+.ac_stamp {
   align-self: flex-start;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  @extend %text-mono;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: $secure;
-  border: 1.5px solid $secure;
+  color: $profile-secure;
+  border: 1.5px solid $profile-secure;
   border-radius: 3px;
   padding: 0.3rem 0.55rem;
   transform: rotate(-2deg);
   margin-bottom: 0.15rem;
 }
 
-.Field {
+.ac_field {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 }
 
-.FieldLabel {
+.ac_fieldLabel {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: $inkSoft;
+  color: $profile-inkSoft;
   font-weight: 600;
 }
 
-.Static {
+.ac_static {
   font-size: 0.92rem;
-  color: $ink;
+  color: $profile-ink;
   background: #F4F1E9;
-  border: 1px solid $hairline;
+  border: 1px solid $profile-hairline;
   border-radius: 6px;
   padding: 0.55rem 0.7rem;
 }
 
-.InputWrap {
+.ac_inputWrap {
   position: relative;
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
 }
 
-.Input {
+.ac_input {
   width: 100%;
   box-sizing: border-box;
   font: inherit;
   font-size: 0.92rem;
   padding: 0.55rem 2.3rem 0.55rem 0.7rem;
   border-radius: 6px;
-  border: 1px solid $hairlineStrong;
-  background: #fff;
-  color: $ink;
+  border: 1px solid $profile-hairlineStrong;
+  background: $white;
+  color: $profile-ink;
   outline: none;
   transition: border-color 0.15s ease;
 
   &:focus {
-    border-color: $ink;
+    border-color: $profile-ink;
   }
 }
 
-.inputMismatch {
-  border-color: $secure;
+.ac_inputMismatch {
+  border-color: $profile-secure;
 }
 
-.inputMatch {
-  border-color: $confirm;
+.ac_inputMatch {
+  border-color: $profile-confirm;
 }
 
-.Reveal {
+.ac_reveal {
   position: absolute;
   right: 0.55rem;
   background: none;
   border: none;
   cursor: pointer;
-  color: $inkSoft;
-  display: flex;
-  align-items: center;
+  color: $profile-inkSoft;
+  @extend %flex-center;
   padding: 0.2rem;
 }
 
-.MatchDot {
+.ac_matchDot {
   position: absolute;
   right: 0.6rem;
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
+  @extend %flex-center;
+  color: $white;
   opacity: 0;
   transform: scale(0.6);
   transition: all 0.2s ease;
 }
 
-.Match-match {
-  background: $confirm;
+.ac_matchMatch {
+  background: $profile-confirm;
   opacity: 1;
   transform: scale(1);
 }
 
-.Match-mismatch {
-  background: $secure;
+.ac_matchMismatch {
+  background: $profile-secure;
   opacity: 1;
   transform: scale(1);
 }
 
-.MatchText {
+.ac_matchText {
   font-size: 0.76rem;
-  color: $inkSoft;
+  color: $profile-inkSoft;
 }
 
-.MatchText-match {
-  color: $confirm;
+.ac_matchTextMatch {
+  color: $profile-confirm;
 }
 
-.MatchText-mismatch {
-  color: $secure;
+.ac_matchTextMismatch {
+  color: $profile-secure;
 }
 
-.Actions {
-  display: flex;
+.ac_actions {
+  @extend %flex-align;
   justify-content: flex-end;
-  align-items: center;
   gap: 0.6rem;
   margin-top: 0.25rem;
 }
 
-.GhostButton {
+.ac_ghostButton {
   font: inherit;
   font-size: 0.85rem;
   background: none;
   border: none;
-  color: $inkSoft;
+  color: $profile-inkSoft;
   cursor: pointer;
   padding: 0.5rem 0.6rem;
 
   &:hover {
-    color: $ink;
+    color: $profile-ink;
   }
 }
 
-.SecureButton {
+.ac_secureButton {
   font: inherit;
   font-size: 0.85rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
   gap: 0.35rem;
   padding: 0.6rem 1.1rem;
   border-radius: 6px;
   border: none;
-  background: $hairline;
-  color: $inkSoft;
+  background: $profile-hairline;
+  color: $profile-inkSoft;
   cursor: not-allowed;
   transition: all 0.2s ease;
 }
 
-.SecureButtonReady {
-  background: $secure;
-  color: #fff;
+.ac_secureButtonReady {
+  background: $profile-secure;
+  color: $white;
   cursor: pointer;
 }
 
-.SecureButtonSaved {
-  background: $confirm;
+.ac_secureButtonSaved {
+  background: $profile-confirm;
 }
 
-// Ring (circular progress) button
-.RingButton {
+.ac_ringButton {
   position: relative;
   font: inherit;
   font-size: 0.85rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
+  @extend %flex-align;
   gap: 0.4rem;
   padding: 0.55rem 1.1rem 0.55rem 0.55rem;
   border-radius: 999px;
   border: none;
-  background: $hairline;
-  color: $inkSoft;
+  background: $profile-hairline;
+  color: $profile-inkSoft;
   cursor: not-allowed;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.RingButtonReady {
-  background: $ink;
-  color: #fff;
+.ac_ringButtonReady {
+  background: $profile-ink;
+  color: $white;
   cursor: pointer;
 }
 
-.RingButtonSaved {
-  background: $confirm;
-  color: #fff;
+.ac_ringButtonSaved {
+  background: $profile-confirm;
+  color: $white;
 }
 
-.RingSVG {
+.ac_ringSvg {
   width: 20px;
   height: 20px;
   transform: rotate(-90deg);
   flex-shrink: 0;
 }
 
-.RingTrack {
+.ac_ringTrack {
   fill: none;
   stroke: rgba(0, 0, 0, 0.12);
   stroke-width: 3;
 }
 
-.RingButtonReady .RingTrack,
-.RingButtonSaved .RingTrack {
+.ac_ringButtonReady .ac_ringTrack,
+.ac_ringButtonSaved .ac_ringTrack {
   stroke: rgba(255, 255, 255, 0.25);
 }
 
-.RingProgress {
+.ac_ringProgress {
   fill: none;
   stroke: currentColor;
   stroke-width: 3;
@@ -963,51 +1139,48 @@ $confirmSoft: #3B66501a;
   transition: stroke-dashoffset 1s linear;
 }
 
-.RingButtonLabel {
-  display: flex;
-  align-items: center;
+.ac_ringButtonLabel {
+  @extend %flex-align;
   gap: 0.3rem;
   white-space: nowrap;
 }
 
-.PhotoRow {
+.ac_photoRow {
   display: flex;
   align-items: flex-end;
   gap: 1rem;
 }
 
-.PhotoCol {
+.ac_photoCol {
   align-items: center;
 }
 
-.PhotoArrow {
-  color: $hairlineStrong;
+.ac_photoArrow {
+  color: $profile-hairlineStrong;
   font-size: 1.2rem;
   padding-bottom: 0.9rem;
 }
 
-.Avatar {
+.ac_avatar {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Georgia, serif;
+  @extend %flex-center;
+  @extend %text-serif;
   font-size: 1.4rem;
   overflow: hidden;
 }
 
-.AvatarOld {
+.ac_avatarOld {
   background: #F4F1E9;
-  border: 1px solid $hairline;
-  color: $inkSoft;
+  border: 1px solid $profile-hairline;
+  color: $profile-inkSoft;
 }
 
-.AvatarNew {
-  background: #fff;
-  border: 1.5px dashed $hairlineStrong;
-  color: $inkSoft;
+.ac_avatarNew {
+  background: $white;
+  border: 1.5px dashed $profile-hairlineStrong;
+  color: $profile-inkSoft;
   cursor: pointer;
   padding: 0;
 
@@ -1018,51 +1191,137 @@ $confirmSoft: #3B66501a;
   }
 }
 
+.ac_orderStatus {
+  font-size: 0.9rem;
+  color: $profile-inkSoft;
+  background: #F4F1E9;
+  border: 1px solid $profile-hairline;
+  border-radius: 6px;
+  padding: 0.75rem 0.9rem;
+  text-align: center;
+}
+
+.ac_orderStatusError {
+  color: $profile-secure;
+  border-color: rgba($profile-secure, 0.4);
+}
+
+.ac_orderList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.ac_orderItem {
+  @extend %flex-align;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid $profile-hairline;
+  border-radius: 8px;
+  background: $profile-paper;
+}
+
+.ac_orderIcon {
+  @extend %flex-center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F4F1E9;
+  color: $profile-inkSoft;
+}
+
+.ac_orderDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.ac_orderTopRow {
+  @extend %flex-between;
+  gap: 0.5rem;
+}
+
+.ac_orderProduct {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: $profile-ink;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac_orderTotal {
+  @extend %text-mono;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $profile-ink;
+  flex-shrink: 0;
+}
+
+.ac_orderMeta {
+  @extend %flex-align;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  color: $profile-inkSoft;
+}
+
+.ac_orderAddress {
+  font-size: 0.8rem;
+  color: $profile-inkSoft;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (max-width: 420px) {
-  .Greeting {
+  .ac_greeting {
     font-size: 1.7rem;
   }
 }
 
-.blur {
+.ac_blur {
   filter: blur(500px);
 }
 
-.CartPage {
+.ac_cartPage {
   background-color: $background-color;
   min-height: 100vh;
 }
 
-.cartContent {
+.ac_cartContent {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
-.cartHeading {
+.ac_cartHeading {
   font-size: $headerSize;
   margin-bottom: 1.5rem;
 }
 
-.cartMessage {
+.ac_cartMessage {
   font-size: 1.2rem;
-  color: #666;
+  color: $gray-medium;
 }
 
-.cartList {
+.ac_cartList {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.CartItem {
-  display: flex;
-  align-items: center;
+.ac_cartItem {
+  @extend %flex-align;
   gap: 1.5rem;
-  background-color: #f8f8f8;
-  border-radius: 15px;
+  background-color: $card-bg;
+  @extend %card-shadow;
   padding: 1rem;
-  box-shadow: 5px 5px 5px #8f8f8f;
 
   img {
     width: 120px;
@@ -1072,23 +1331,22 @@ $confirmSoft: #3B66501a;
   }
 }
 
-.cartItemInfo {
+.ac_cartItemInfo {
   flex: 1;
 }
 
-.cartItemTitle {
+.ac_cartItemTitle {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.cartItemPrice {
-  color: #444;
+.ac_cartItemPrice {
+  color: $price-color;
   margin: 0.3rem 0;
 }
 
-.quantityControls {
-  display: flex;
-  align-items: center;
+.ac_quantityControls {
+  @extend %flex-align;
   gap: 0.75rem;
   margin: 0.5rem 0;
 
@@ -1097,44 +1355,410 @@ $confirmSoft: #3B66501a;
     height: 28px;
     border: none;
     border-radius: 6px;
-    background-color: #232f3e;
-    color: white;
+    background-color: $primary-dark;
+    color: $white;
     cursor: pointer;
     font-size: 1.1rem;
   }
 }
 
-.removeButton {
+.ac_removeButton {
   background: none;
   border: none;
-  color: #b00020;
+  color: $remove-color;
   cursor: pointer;
   text-decoration: underline;
   padding: 0;
   font-size: 0.95rem;
 }
 
-.cartSummary {
+.ac_cartSummary {
   margin-top: 2rem;
-  display: flex;
+  @extend %flex-align;
   justify-content: flex-end;
-  align-items: center;
   gap: 1.5rem;
 }
 
-.cartTotal {
+.ac_cartTotal {
   font-size: 1.4rem;
   font-weight: bold;
 }
 
-.checkoutButton {
-  background-color: #232f3e;
-  color: white;
+.ac_checkoutButton {
+  background-color: $primary-dark;
+  color: $white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 10px;
   font-size: 1.1rem;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.ac_checkoutPage {
+  min-height: 100vh;
+  background: $checkout-parchment;
+  font-family: $font-sans;
+  color: $checkout-ink;
+}
+
+.ac_checkoutContent {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+.ac_checkoutHeading {
+  @extend %text-serif;
+  font-weight: 700;
+  font-size: 2.25rem;
+  letter-spacing: -0.01em;
+  color: $checkout-navy;
+  margin: 0 0 2rem;
+}
+
+.ac_checkoutMessage {
+  font-size: 1.05rem;
+  color: $checkout-ink-soft;
+}
+
+.ac_checkoutLayout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  align-items: start;
+
+  @media (max-width: 780px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ac_checkoutForm {
+  background: $checkout-card;
+  border: 1px solid $checkout-border;
+  border-radius: 10px;
+  padding: 2rem 2.25rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  h2 {
+    @extend %text-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: $checkout-navy;
+    margin: 1.4rem 0 0.2rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $checkout-ink-soft;
+  }
+
+  input,
+  textarea {
+    font-family: $font-sans;
+    font-size: 0.95rem;
+    color: $checkout-ink;
+    background: $white;
+    border: 1px solid $checkout-border;
+    border-radius: 6px;
+    padding: 0.65rem 0.75rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &::placeholder {
+      color: #a8a196;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $checkout-navy;
+      box-shadow: 0 0 0 3px rgba($checkout-navy, 0.12);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 4.5rem;
+  }
+}
+
+.ac_checkoutAddress {
+  width: 100%;
+}
+
+.ac_checkoutMockNotice {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: $checkout-ink-soft;
+  background: rgba($checkout-navy, 0.05);
+  border-left: 3px solid $checkout-navy;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0 4px 4px 0;
+  margin: 0 0 0.4rem;
+}
+
+.ac_checkoutCardRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.ac_checkoutError {
+  color: $checkout-error;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0.2rem 0 0;
+}
+
+.ac_checkoutSubmit {
+  font-family: $font-sans;
+  font-weight: 600;
+  font-size: 1rem;
+  color: $white;
+  background: $checkout-brick;
+  border: none;
+  border-radius: 6px;
+  padding: 0.85rem 1.25rem;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+
+  &:hover:not(:disabled) {
+    background: $checkout-brick-dark;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    background: #c9a89f;
+    cursor: not-allowed;
+  }
+}
+
+.ac_checkoutSummary {
+  position: relative;
+  background: $checkout-card;
+  border: 1px solid $checkout-border;
+  border-radius: 10px;
+  padding: 1.75rem 1.75rem 1.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 16px;
+    border-radius: 10px 10px 0 0;
+    background-image: radial-gradient(circle at 12px 6px, rgba($checkout-navy, 0.14) 4.5px, transparent 5px);
+    background-size: 28px 16px;
+    background-repeat: repeat-x;
+    background-position: 14px 0;
+  }
+
+  h2 {
+    @extend %text-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: $checkout-navy;
+    margin: 0.75rem 0 1.1rem;
+  }
+}
+
+.ac_checkoutSummaryItem {
+  @extend %flex-between;
+  gap: 1rem;
+  @extend %text-mono;
+  font-size: 0.85rem;
+  color: $checkout-ink-soft;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed $checkout-parchment-deep;
+
+  span:first-child {
+    font-family: $font-sans;
+    color: $checkout-ink;
+  }
+}
+
+.ac_checkoutSummaryTotal {
+  @extend %flex-between;
+  align-items: baseline;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid $checkout-navy;
+  @extend %text-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: $checkout-navy;
+
+  span:last-child {
+    @extend %text-mono;
+    font-weight: 500;
+  }
+}
+.ac_confirmationPage {
+  min-height: 100vh;
+  background: $checkout-parchment;
+  font-family: $font-sans;
+  color: $checkout-ink;
+}
+
+.ac_confirmationContent {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+  @extend %flex-col-center;
+  text-align: center;
+}
+
+.ac_confirmationBadge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: $profile-confirm;
+  color: $white;
+  font-size: 1.6rem;
+  @extend %flex-center;
+  margin-bottom: 1.25rem;
+}
+
+.ac_confirmationHeading {
+  @extend %text-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: $checkout-navy;
+  margin: 0 0 0.6rem;
+}
+
+.ac_confirmationSubheading {
+  font-size: 1rem;
+  color: $checkout-ink-soft;
+  line-height: 1.5;
+  margin: 0 0 2rem;
+  max-width: 480px;
+}
+
+.ac_confirmationRef {
+  @extend %text-mono;
+  font-weight: 500;
+  color: $checkout-navy;
+  background: rgba($checkout-navy, 0.08);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.ac_confirmationMessage {
+  font-size: 1.05rem;
+  color: $checkout-ink-soft;
+  margin-bottom: 1.5rem;
+}
+
+.ac_confirmationSummary {
+  position: relative;
+  width: 100%;
+  background: $checkout-card;
+  border: 1px solid $checkout-border;
+  border-radius: 10px;
+  padding: 1.75rem 1.75rem 1.5rem;
+  text-align: left;
+  margin-bottom: 2rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 16px;
+    border-radius: 10px 10px 0 0;
+    background-image: radial-gradient(circle at 12px 6px, rgba($checkout-navy, 0.14) 4.5px, transparent 5px);
+    background-size: 28px 16px;
+    background-repeat: repeat-x;
+    background-position: 14px 0;
+  }
+
+  h2 {
+    @extend %text-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: $checkout-navy;
+    margin: 0.75rem 0 1rem;
+  }
+}
+
+.ac_confirmationSummaryItem {
+  @extend %flex-between;
+  gap: 1rem;
+  @extend %text-mono;
+  font-size: 0.85rem;
+  color: $checkout-ink-soft;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed $checkout-parchment-deep;
+
+  span:first-child {
+    font-family: $font-sans;
+    color: $checkout-ink;
+  }
+}
+
+.ac_confirmationSummaryTotal {
+  @extend %flex-between;
+  align-items: baseline;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid $checkout-navy;
+  @extend %text-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: $checkout-navy;
+
+  span:last-child {
+    @extend %text-mono;
+    font-weight: 500;
+  }
+}
+
+.ac_confirmationAddress {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid $checkout-border;
+
+  h2 {
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $checkout-ink-soft;
+    white-space: pre-line;
+  }
+}
+
+.ac_confirmationContinue {
+  font-family: $font-sans;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: $white;
+  background: $checkout-navy;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
 
   &:hover {
     opacity: 0.85;

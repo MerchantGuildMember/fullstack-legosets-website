@@ -7,68 +7,72 @@ export default function ContentPageProduct( {product, view, style} ) {
         const outOfStock = product.stock <= 0;
 
         return (
-            <a className={`ProductModule${outOfStock ? ' outOfStock' : ''}`}
+            <a className={`ac_productModule${outOfStock ? ' outOfStock' : ''}`}
                href={`/product/${product._id}`}
                style={style}
             >
-                <div className="productMedia">
+                <div className="ac_productMedia">
                     <img
                         src={product.images?.[0]}
                         alt={product.name}
                         loading="lazy"
-                        onError={(e) => { e.target.src = '/placeholder-product.png'; }}
+                        onError={(e) => {
+                            if (e.target.dataset.fallback) return;
+                            e.target.dataset.fallback = 'true';
+                            e.target.src = '/placeholder-product.png';
+                        }}
                     />
-                    {outOfStock && <span className="stockBadge">Out of stock</span>}
+                    {outOfStock && <span className="ac_stockBadge">Out of stock</span>}
                 </div>
 
-                <div className="productInfo">
-                    {product.brand && <div className="productBrand">{product.brand}</div>}
-                    <div className="productTitle">{product.name}</div>
-                    <div className="productCost">&euro;{product.price.toFixed(2)}</div>
+                <div className="ac_productInfo">
+                    {product.brand && <div className="ac_productBrand">{product.brand}</div>}
+                    <div className="ac_productTitle">{product.name}</div>
+                    <div className="ac_productCost">&euro;{product.price.toFixed(2)}</div>
                 </div>
             </a>
         )
     }
     else if (view === 'advanced') {
         return (
-            <div className="ProductModule">
-                <div className="productContent">
+            <div className="ac_productModule">
+                <div className="ac_productContent">
 
-                    <div className="productMedia">
+                    <div className="ac_productMedia">
                         <img src={product.images[0]} alt={product.name} />
-                        <div className="studStrip" aria-hidden="true" />
+                        <div className="ac_studStrip" aria-hidden="true" />
                     </div>
 
-                    <div className="productInfo">
-                        {product.brand && <div className="productEyebrow">{product.brand}</div>}
-                        <h1 className="productTitle">{product.name}</h1>
+                    <div className="ac_productInfo">
+                        {product.brand && <div className="ac_productEyebrow">{product.brand}</div>}
+                        <h1 className="ac_productTitle">{product.name}</h1>
 
-                        <div className="priceTag">
-                            <span className="priceTagValue">&euro;{product.price}</span>
+                        <div className="ac_priceTag">
+                            <span className="ac_priceTagValue">&euro;{product.price}</span>
                         </div>
 
-                        <div className="specSheet">
+                        <div className="ac_specSheet">
                             {product.pieceCount != null && (
-                                <div className="specCell">
-                                    <span className="specValue">{product.pieceCount}</span>
-                                    <span className="specLabel">Pieces</span>
+                                <div className="ac_specCell">
+                                    <span className="ac_specValue">{product.pieceCount}</span>
+                                    <span className="ac_specLabel">Pieces</span>
                                 </div>
                             )}
-                            <div className="specCell">
-                                <span className="specValue">{product.stock}</span>
-                                <span className="specLabel">In stock</span>
+                            <div className="ac_specCell">
+                                <span className="ac_specValue">{product.stock}</span>
+                                <span className="ac_specLabel">In stock</span>
                             </div>
                             {product.ratingCount != null && (
-                                <div className="specCell">
-                                    <span className="specValue">{product.ratingCount}</span>
-                                    <span className="specLabel">Ratings</span>
+                                <div className="ac_specCell">
+                                    <span className="ac_specValue">{product.ratingCount}</span>
+                                    <span className="ac_specLabel">Ratings</span>
                                 </div>
                             )}
                         </div>
 
-                        <div className="aboutProduct">
-                            <p className="aboutLabel">About this set</p>
-                            <p className="productDesc">{product.description}</p>
+                        <div className="ac_aboutProduct">
+                            <p className="ac_aboutLabel">About this set</p>
+                            <p className="ac_productDesc">{product.description}</p>
                         </div>
 
                         <BuyButton product={product} />

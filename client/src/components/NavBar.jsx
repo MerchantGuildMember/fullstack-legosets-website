@@ -17,26 +17,26 @@ export default function NavBar( {search, setSearch, setIsLoggedIn, ...rest } ) {
     }
 
     return (
-        <div className="Header">
-            <ul className="nav">
+        <div className="ac_header">
+            <ul className="ac_nav">
                 <li><Link to="/">Home</Link></li>
                 {!isLoggedIn &&
                     <li><Link to="/login">Log in</Link></li>
                 }
                 {isLoggedIn &&
-                    <li><button className="linkButton" onClick={handleLogout}>Log out</button></li>
+                    <li><button className="ac_linkButton" onClick={handleLogout}>Log out</button></li>
                 }
             </ul>
             <Searchbar
                 search={search}
                 setSearch={setSearch}
             />
-            <div className="rightIcons">
-                <a className="shoppingCart" href="/cart">
+            <div className="ac_rightIcons">
+                <a className="ac_shoppingCart" href="/cart">
                     <MdOutlineShoppingCart color="white" size={48} />
                 </a>
 
-                <a className="profileHolder" href="/profile">
+                <a className="ac_profileHolder" href="/profile">
                     <MdAccountCircle color="white" size={48} />
                 </a>
             </div>

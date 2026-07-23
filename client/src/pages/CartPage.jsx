@@ -54,25 +54,25 @@ export default function CartPage({ isLoggedIn, setIsLoggedIn }) {
     const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     return (
-        <div className="CartPage">
+        <div className="ac_cartPage">
             <NavBar search={search} setSearch={setSearch} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
-            <div className="cartContent">
-                <h1 className="cartHeading">Your Cart</h1>
+            <div className="ac_cartContent">
+                <h1 className="ac_cartHeading">Your Cart</h1>
 
-                {loading && <p className="cartMessage">Loading cart...</p>}
-                {!loading && cartItems.length === 0 && <p className="cartMessage">Your cart is empty.</p>}
+                {loading && <p className="ac_cartMessage">Loading cart...</p>}
+                {!loading && cartItems.length === 0 && <p className="ac_cartMessage">Your cart is empty.</p>}
 
                 {!loading && cartItems.length > 0 && (
                     <>
-                        <div className="cartList">
+                        <div className="ac_cartList">
                             {cartItems.map(item => (
                                 <CartItem key={item.productId} item={item} updateQuantity={updateQuantity} removeItem={removeItem} />
                             ))}
                         </div>
-                        <div className="cartSummary">
-                            <p className="cartTotal">Total: €{total.toFixed(2)}</p>
-                            <button className="checkoutButton" onClick={() => navigate('/checkout')}>Checkout</button>
+                        <div className="ac_cartSummary">
+                            <p className="ac_cartTotal">Total: €{total.toFixed(2)}</p>
+                            <button className="ac_checkoutButton" onClick={() => navigate('/checkout')}>Checkout</button>
                         </div>
                     </>
                 )}

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const createError = require('http-errors')
+const { publicKey } = require('../config/keys')
 
 function authenticate(req, res, next) {
     const authHeader = req.headers.authorization
@@ -10,9 +11,9 @@ function authenticate(req, res, next) {
 
     const token = authHeader.split(' ')[1]
 
-    jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET, (err, decoded) => {
+    jwt.verify(token, publicKey, { algorithms: ['RS256'] }, (err, decoded) => {
         if (err) return next(createError(401, 'Invalid or expired token'))
-        req.user = decoded // { email, accessLevel, ... }
+        req.user = decoded
         console.log('decoded:', decoded);
         next()
     })

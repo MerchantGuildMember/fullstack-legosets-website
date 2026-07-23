@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const Cart = require('../models/cart');
 const Product = require('../models/products');
 
-// Works out whether this request belongs to a logged-in user or a guest
 function identifyCart(req, res, next) {
     let user = null;
     let guest = null;
@@ -14,7 +13,7 @@ function identifyCart(req, res, next) {
         try {
             const token = authHeader.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET);
-            user = decoded.userId;   // <-- make sure this field exists in the token payload
+            user = decoded.userId;
         } catch (err) {
             return res.status(401).json({ message: 'Invalid token' });
         }
@@ -25,29 +24,26 @@ function identifyCart(req, res, next) {
         }
     }
 
-    // NOW check that at least one identifier is valid
     if (!user && !guest) {
         return res.status(400).json({ message: 'Invalid identification' });
     }
 
-    // Set the filter based on what we have
     req.cartFilter = user ? { user } : { guestId: guest };
     next();
 }
 
-// GET /cart
 router.get('/cart', identifyCart, async (req, res) => {
     try {
         const cart = await Cart.findOne(req.cartFilter).populate('items.product');
         if (!cart) return res.json({ items: [] });
 
         const items = cart.items
-            .filter(i => i.product) // guard against deleted products
+            .filter(i => i.product)
             .map(i => ({
                 productId: i.product._id,
-                title: i.product.name,               // use 'name'
+                title: i.product.name,
                 price: i.product.price,
-                image: i.product.images?.[0] || '',  // first image
+                image: i.product.images?.[0] || '',
                 quantity: i.quantity
             }))
 
@@ -57,7 +53,6 @@ router.get('/cart', identifyCart, async (req, res) => {
     }
 });
 
-// POST /cart/add   body: { productId, quantity }
 router.post('/cart/add', identifyCart, async (req, res) => {
     const { productId, quantity = 1 } = req.body;
     try {
@@ -81,7 +76,6 @@ router.post('/cart/add', identifyCart, async (req, res) => {
     }
 });
 
-// PUT /cart/:productId   body: { quantity }
 router.put('/cart/:productId', identifyCart, async (req, res) => {
     try {
         const cart = await Cart.findOne(req.cartFilter);
@@ -98,7 +92,6 @@ router.put('/cart/:productId', identifyCart, async (req, res) => {
     }
 });
 
-// DELETE /cart/:productId
 router.delete('/cart/:productId', identifyCart, async (req, res) => {
     try {
         const cart = await Cart.findOne(req.cartFilter);

@@ -18,7 +18,7 @@ export default function ProductPage() {
     }, []);
 
     return (
-        <div className="ProductPage">
+        <div className="ac_productPage">
             <NavBar />
             <hr />
             {product && <ContentPageProduct product={product} view={'advanced'}/>}

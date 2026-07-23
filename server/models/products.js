@@ -24,4 +24,10 @@ let productsSchema = new mongoose.Schema(
     }
 )
 
+productsSchema.index({ brand: 1 });
+productsSchema.index({ price: 1 });
+productsSchema.index({ name: 1 });
+productsSchema.index({ pieceCount: 1 });
+productsSchema.index({ ratingCount: -1 });
+
 module.exports = mongoose.model('products', productsSchema)

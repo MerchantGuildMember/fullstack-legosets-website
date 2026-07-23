@@ -7,7 +7,7 @@ const authenticate = require('../middleware/authenticate')
 const { privateKey } = require('../config/keys')
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const MAX_PHOTO_BYTES = 5 * 1024 * 1024 // 5MB
+const MAX_PHOTO_BYTES = 5 * 1024 * 1024
 
 const signToken = (user) => jwt.sign(
     { email: user.email, accessLevel: user.accessLevel, userId: user._id },
@@ -81,9 +81,6 @@ router.get('/users/me', authenticate, (req, res, next) => {
         .catch(err => next(err))
 })
 
-// Update the logged-in user's own name, email, password, and/or photo.
-// Any subset of these fields may be sent - only the ones present in the
-// body are validated and changed.
 router.patch('/users/me', authenticate, (req, res, next) => {
     const { name, email, password, photo } = req.body
 
@@ -110,7 +107,6 @@ router.patch('/users/me', authenticate, (req, res, next) => {
                 if (typeof photo !== 'string' || !photo.startsWith('data:image/')) {
                     throw createError(400, 'Photo must be a valid image')
                 }
-                // Rough size check on the base64 payload (~4/3 the byte size).
                 const approxBytes = photo.length * 0.75
                 if (approxBytes > MAX_PHOTO_BYTES) {
                     throw createError(400, 'Image must be smaller than 5MB')
@@ -155,8 +151,6 @@ router.patch('/users/me', authenticate, (req, res, next) => {
                     return user.save()
                 })
                 .then(updated => {
-                    // The JWT carries the email, so a fresh token is needed
-                    // whenever the email changes or it'll stop matching this user.
                     const token = updates.email ? signToken(updated) : undefined
                     res.json({
                         name: updated.name,

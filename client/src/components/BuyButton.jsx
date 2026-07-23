@@ -4,7 +4,7 @@ import { getGuestId } from '../utils/guestID';
 
 export default function BuyButton({ product }) {
     const [quantity, setQuantity] = useState(1);
-    const [status, setStatus] = useState('idle'); // idle | loading | added | error
+    const [status, setStatus] = useState('idle');
     const [errorMessage, setErrorMessage] = useState('');
 
     const outOfStock = !product || product.stock <= 0;
@@ -36,8 +36,8 @@ export default function BuyButton({ product }) {
     }
 
     return (
-        <div className="buyButtonWrapper">
-            <div className="quantityControls">
+        <div className="ac_buyButtonWrapper">
+            <div className="ac_quantityControls">
                 <button
                     type="button"
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
@@ -56,7 +56,7 @@ export default function BuyButton({ product }) {
             </div>
 
             <button
-                className="BuyButton"
+                className="ac_buyButton"
                 onClick={handleAddToCart}
                 disabled={outOfStock || status === 'loading'}
             >
@@ -70,7 +70,7 @@ export default function BuyButton({ product }) {
             </button>
 
             {status === 'error' && (
-                <p className="buyButtonError">{errorMessage}</p>
+                <p className="ac_buyButtonError">{errorMessage}</p>
             )}
         </div>
     );

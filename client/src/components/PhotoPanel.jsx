@@ -17,7 +17,7 @@ export default function PhotoPanel({ onClose, onSave }) {
 
     const handleFile = (e) => {
         const f = e.target.files?.[0];
-        e.target.value = ""; // allow re-selecting the same file after an error
+        e.target.value = "";
 
         if (!f) return;
 
