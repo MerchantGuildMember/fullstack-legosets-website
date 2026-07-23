@@ -13,7 +13,7 @@ function randomPhrase() {
 function Eggon() {
 
     return (
-        <div className="eggon">
+        <div className="ac_eggon">
             <p>{randomPhrase()}</p>
         </div>
     )
