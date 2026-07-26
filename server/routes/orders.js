@@ -5,6 +5,7 @@ const createError = require('http-errors');
 const Order = require('../models/orders');
 const Cart = require('../models/cart');
 const Product = require('../models/products');
+const { publicKey } = require('../config/keys');
 
 function identifyCustomer(req, res, next) {
     let user = null;
@@ -14,7 +15,7 @@ function identifyCustomer(req, res, next) {
     if (authHeader) {
         try {
             const token = authHeader.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET);
+            const decoded = jwt.verify(token, publicKey, { algorithms: ['RS256'] });
             user = decoded.userId;
         } catch (err) {
             return next(createError(401, 'Invalid token'));
