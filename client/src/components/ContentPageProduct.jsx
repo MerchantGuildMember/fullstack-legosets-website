@@ -7,7 +7,7 @@ export default function ContentPageProduct( {product, view, style} ) {
         const outOfStock = product.stock <= 0;
 
         return (
-            <a className={`ac_productModule${outOfStock ? ' outOfStock' : ''}`}
+            <a className="ac_productModule"
                href={`/product/${product._id}`}
                style={style}
             >
