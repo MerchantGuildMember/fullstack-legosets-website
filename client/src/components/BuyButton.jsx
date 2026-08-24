@@ -16,7 +16,7 @@ export default function BuyButton({ product }) {
         setErrorMessage('');
 
         const token = localStorage.getItem('token');
-        const headers = token
+        const headers = token && token !== 'null'
             ? { Authorization: `Bearer ${token}` }
             : { 'x-guest-id': getGuestId() };
 

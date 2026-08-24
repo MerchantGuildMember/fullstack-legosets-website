@@ -14,7 +14,6 @@ function authenticate(req, res, next) {
     jwt.verify(token, publicKey, { algorithms: ['RS256'] }, (err, decoded) => {
         if (err) return next(createError(401, 'Invalid or expired token'))
         req.user = decoded
-        console.log('decoded:', decoded);
         next()
     })
 }

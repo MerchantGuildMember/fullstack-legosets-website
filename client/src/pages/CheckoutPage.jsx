@@ -6,7 +6,7 @@ import { SERVER_HOST } from '../config/global_constants';
 import { getGuestId } from '../utils/guestID';
 
 function getCheckoutHeaders() {
-    if (localStorage.token) {
+    if (localStorage.token && localStorage.token !== "null") {
         return { Authorization: `Bearer ${localStorage.token}` };
     }
     return { 'x-guest-id': getGuestId() };
