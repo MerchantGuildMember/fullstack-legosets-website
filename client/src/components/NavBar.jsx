@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import Searchbar from "./Searchbar";
-import { MdAccountCircle, MdOutlineShoppingCart } from "react-icons/md";
+import { CircleUserRound, ShoppingCart } from "lucide-react";
 
 export default function NavBar( {search, setSearch, setIsLoggedIn, ...rest } ) {
 
@@ -33,11 +33,11 @@ export default function NavBar( {search, setSearch, setIsLoggedIn, ...rest } ) {
             />
             <div className="ac_rightIcons">
                 <a className="ac_shoppingCart" href="/cart">
-                    <MdOutlineShoppingCart color="white" size={48} />
+                    <ShoppingCart color="white" size={48} />
                 </a>
 
                 <a className="ac_profileHolder" href="/profile">
-                    <MdAccountCircle color="white" size={48} />
+                    <CircleUserRound color="white" size={48} />
                 </a>
             </div>
         </div>

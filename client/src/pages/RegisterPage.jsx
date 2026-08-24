@@ -2,8 +2,7 @@ import RegisterForm from "../components/RegisterForm";
 import {SERVER_HOST} from "../config/global_constants"
 import axios from "axios"
 import {useState, useEffect} from "react";
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+import {EMAIL_REGEX} from "../utils/validators";
 
 export default function RegisterPage() {
     const [name, setName] = useState("")

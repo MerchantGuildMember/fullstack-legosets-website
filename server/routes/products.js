@@ -1,6 +1,8 @@
 const router = require(`express`).Router();
 const createError = require('http-errors')
 const productsModel = require('../models/products.js');
+const authenticate = require('../middleware/authenticate');
+const requireAdmin = require('../middleware/requireAdmin');
 const QUERY_LIMIT = process.env.MAX_LIMIT_PER_QUERY
 
 const SORT_OPTIONS = {
@@ -52,13 +54,62 @@ function getFilter(query) {
     return filter;
 }
 
-router.get(`/products/brands`, (req, res) => {
+function validateProductBody(body, { partial = false } = {}) {
+    const errors = {};
+    const clean = {};
+
+    if (!partial || body.name !== undefined) {
+        const name = typeof body.name === 'string' ? body.name.trim() : '';
+        if (!name) errors.name = 'Name is required';
+        else clean.name = name;
+    }
+
+    if (!partial || body.brand !== undefined) {
+        const brand = typeof body.brand === 'string' ? body.brand.trim() : '';
+        if (!brand) errors.brand = 'Brand is required';
+        else clean.brand = brand;
+    }
+
+    if (!partial || body.price !== undefined) {
+        const price = parseFloat(body.price);
+        if (Number.isNaN(price) || price < 0) errors.price = 'Price must be a positive number';
+        else clean.price = price;
+    }
+
+    if (!partial || body.stock !== undefined) {
+        const stock = parseInt(body.stock, 10);
+        if (Number.isNaN(stock) || stock < 0) errors.stock = 'Stock must be a non-negative whole number';
+        else clean.stock = stock;
+    }
+
+    if (!partial || body.pieceCount !== undefined) {
+        if (body.pieceCount !== undefined && body.pieceCount !== '') {
+            const pieceCount = parseInt(body.pieceCount, 10);
+            if (Number.isNaN(pieceCount) || pieceCount < 0) errors.pieceCount = 'Piece count must be a non-negative whole number';
+            else clean.pieceCount = pieceCount;
+        }
+    }
+
+    if (!partial || body.images !== undefined) {
+        const images = Array.isArray(body.images) ? body.images.filter(Boolean) : [];
+        if (images.length === 0) errors.images = 'At least one image URL is required';
+        else clean.images = images;
+    }
+
+    if (body.description !== undefined) {
+        clean.description = typeof body.description === 'string' ? body.description.trim() : '';
+    }
+
+    return { errors, clean };
+}
+
+router.get(`/products/brands`, (req, res, next) => {
     productsModel.distinct('brand')
         .then(brands => res.json({ brands: brands.filter(Boolean).sort() }))
-        .catch(err => res.status(500).json({ error: "Failed to load brands" }));
+        .catch(err => next(err));
 })
 
-router.get(`/products`, (req, res) => {
+router.get(`/products`, (req, res, next) => {
     const page = parseInt(req.query.page, 10) || 0;
     const limit = Math.min(parseInt(req.query.limit, 10) || QUERY_LIMIT, 100);
     const skip = page * limit;
@@ -70,16 +121,19 @@ router.get(`/products`, (req, res) => {
             const hasMore = docs.length > limit;
             res.json({ products: docs.slice(0, limit), hasMore });
         })
-        .catch(err => res.status(500).json({ error: "Failed to load products" }));
+        .catch(err => next(err));
 })
 
-router.get("/products/:id", (req, res) => {
+router.get("/products/:id", (req, res, next) => {
     productsModel.findById(req.params.id)
-        .then(product => res.json(product))
-        .catch(err => res.status(500).json({ error: "Failed to load product" }));
+        .then(product => {
+            if (!product) return next(createError(404, 'Product not found'));
+            res.json(product)
+        })
+        .catch(err => next(err));
 })
 
-router.get("/products/search/:string", (req, res) => {
+router.get("/products/search/:string", (req, res, next) => {
     const search = req.params.string;
     const page = parseInt(req.query.page, 10) || 0;
     const limit = Math.min(parseInt(req.query.limit, 10) || QUERY_LIMIT, 100);
@@ -95,28 +149,41 @@ router.get("/products/search/:string", (req, res) => {
             const hasMore = docs.length > limit;
             res.json({ products: docs.slice(0, limit), hasMore });
         })
-        .catch(err => res.status(500).json({ error: "Failed to load products" }));
+        .catch(err => next(err));
 })
 
-router.post(`/product`, (req, res) => {
-    productsModel.create(req.body)
-        .then(product => {
-            res.json(product)
-        })
+router.post(`/product`, authenticate, requireAdmin, (req, res, next) => {
+    const { errors, clean } = validateProductBody(req.body);
+    if (Object.keys(errors).length) {
+        return next(createError(400, JSON.stringify(errors)));
+    }
+
+    productsModel.create(clean)
+        .then(product => res.json(product))
+        .catch(err => next(createError(500, 'Failed to create product')))
 })
 
-router.put(`/product/:id`, (req, res) => {
-    productsModel.findByIdAndUpdate(req.params.id, {$set: req.body})
+router.put(`/product/:id`, authenticate, requireAdmin, (req, res, next) => {
+    const { errors, clean } = validateProductBody(req.body, { partial: true });
+    if (Object.keys(errors).length) {
+        return next(createError(400, JSON.stringify(errors)));
+    }
+
+    productsModel.findByIdAndUpdate(req.params.id, { $set: clean }, { new: true })
         .then(product => {
+            if (!product) return next(createError(404, 'Product not found'));
             res.json(product)
         })
+        .catch(err => next(createError(500, 'Failed to update product')))
 })
 
-router.delete(`/product/:id`, (req, res) => {
-    productsModel.delete(req.params.id)
+router.delete(`/product/:id`, authenticate, requireAdmin, (req, res, next) => {
+    productsModel.findByIdAndDelete(req.params.id)
         .then(product => {
-            res.json(product)
+            if (!product) return next(createError(404, 'Product not found'));
+            res.json({ message: 'Product deleted' })
         })
+        .catch(err => next(createError(500, 'Failed to delete product')))
 })
 
 module.exports = router;
