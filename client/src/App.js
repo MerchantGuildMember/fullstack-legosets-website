@@ -1,6 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
-import "@fontsource/ubuntu";
+import './css/scss.css';
 import ContentPage from './pages/ContentPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import ProductPage from './pages/ProductPage.jsx';
@@ -9,6 +7,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import AdminPage from "./pages/AdminPage.jsx";
 import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "./config/global_constants"
 
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
@@ -51,10 +50,7 @@ function App() {
                 <Route exact path="/cart" element={<CartPage isLoggedIn={isLoggedIn}/>}/>
                 <Route exact path="/checkout" element={<CheckoutPage isLoggedIn={isLoggedIn}/>}/>
                 <Route exact path="/order-confirmation" element={<OrderConfirmationPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
-
-                <Route exact path="/addProduct" element={<addProduct />}/>
-                <Route exact path="/editProduct/:id" element={<editProduct />}/>
-                <Route exact path="/deleteProduct/:id" element={<deleteProduct />}/>
+                <Route exact path="/admin" element={<AdminPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}/>
 
                 <Route exact path="*" element={<h3>Invalid URL.</h3>}/>
             </Routes>
