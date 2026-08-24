@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Package } from "lucide-react";
 
 function formatDate(dateString) {
@@ -16,7 +16,21 @@ function formatPrice(value) {
     return num.toLocaleString(undefined, { style: "currency", currency: "USD" });
 }
 
-export default function OrderHistoryPanel({ orders, loading, error, onClose }) {
+export default function OrderHistoryPanel({ orders, loading, error, onClose, onReturn }) {
+    const [returningId, setReturningId] = useState(null);
+    const [returnErrors, setReturnErrors] = useState({});
+
+    const handleReturn = (orderId) => {
+        setReturningId(orderId);
+        setReturnErrors(prev => ({ ...prev, [orderId]: null }));
+
+        onReturn(orderId)
+            .catch(err => {
+                setReturnErrors(prev => ({ ...prev, [orderId]: err.message }));
+            })
+            .finally(() => setReturningId(null));
+    };
+
     return (
         <div className="ac_panel">
             {loading && <div className="ac_orderStatus">Loading your orders&hellip;</div>}
@@ -53,8 +67,29 @@ export default function OrderHistoryPanel({ orders, loading, error, onClose }) {
                                         <span>{formatDate(order.createdAt)}</span>
                                         <span>&middot;</span>
                                         <span>Qty {order.amount}</span>
+                                        {order.status === "returned" && (
+                                            <>
+                                                <span>&middot;</span>
+                                                <span>Returned {formatDate(order.returnedAt)}</span>
+                                            </>
+                                        )}
                                     </div>
                                     <div className="ac_orderAddress">{order.address}</div>
+                                    {order.status !== "returned" && (
+                                        <button
+                                            type="button"
+                                            className="ac_ghostButton"
+                                            disabled={returningId === order._id}
+                                            onClick={() => handleReturn(order._id)}
+                                        >
+                                            {returningId === order._id ? "Returning..." : "Return order"}
+                                        </button>
+                                    )}
+                                    {returnErrors[order._id] && (
+                                        <div className="ac_orderStatus ac_orderStatusError">
+                                            {returnErrors[order._id]}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         );

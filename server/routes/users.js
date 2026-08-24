@@ -4,6 +4,7 @@ const usersModel = require('../models/users.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const authenticate = require('../middleware/authenticate')
+const requireAdmin = require('../middleware/requireAdmin')
 const { privateKey } = require('../config/keys')
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -47,11 +48,11 @@ router.post(`/users/login`, (req, res, next) =>
                     const token = signToken(data)
                     res.json({ name: data.name, accessLevel: data.accessLevel, token })
                 } else {
-                    next(createError(403, `User is not logged in`))
+                    next(createError(403, `Incorrect email or password`))
                 }
             })
         })
-        .catch(err => next(createError(403, `User is not logged in`)))
+        .catch(err => next(createError(403, `Incorrect email or password`)))
 })
 
 
@@ -60,11 +61,12 @@ router.post(`/users/logout`, (req, res, next) =>
     res.json({})
 })
 
-router.get(`/users`, (req, res) => {
-    usersModel.find()
+router.get(`/users`, authenticate, requireAdmin, (req, res, next) => {
+    usersModel.find().select('-password')
         .then(users => {
             res.json(users)
         })
+        .catch(err => next(createError(500, 'Failed to load users')))
 })
 
 router.get('/users/me', authenticate, (req, res, next) => {
@@ -168,25 +170,27 @@ router.get('/users/verify', authenticate, (req, res, next) => {
     res.json({ isLoggedIn: true })
 })
 
-router.post(`/user`, (req, res) => {
-    usersModel.create(req.body)
+router.put(`/user/:id`, authenticate, requireAdmin, (req, res, next) => {
+    const updates = { ...req.body }
+    delete updates.password
+    delete updates.email
+
+    usersModel.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true })
         .then(user => {
-            res.json(user)
+            if (!user) return next(createError(404, 'User not found'))
+            const { password, ...safeUser } = user.toObject()
+            res.json(safeUser)
         })
+        .catch(err => next(createError(500, 'Failed to update user')))
 })
 
-router.put(`/user/:id`, (req, res) => {
-    usersModel.findByIdAndUpdate(req.params.id, {$set: req.body})
+router.delete(`/user/:id`, authenticate, requireAdmin, (req, res, next) => {
+    usersModel.findByIdAndDelete(req.params.id)
         .then(user => {
-            res.json(user)
+            if (!user) return next(createError(404, 'User not found'))
+            res.json({ message: 'User deleted' })
         })
-})
-
-router.delete(`/user/:id`, (req, res) => {
-    usersModel.delete(req.params.id)
-        .then(user => {
-            res.json(user)
-        })
+        .catch(err => next(createError(500, 'Failed to delete user')))
 })
 
 module.exports = router;

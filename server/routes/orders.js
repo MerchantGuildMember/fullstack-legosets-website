@@ -5,6 +5,8 @@ const createError = require('http-errors');
 const Order = require('../models/orders');
 const Cart = require('../models/cart');
 const Product = require('../models/products');
+const authenticate = require('../middleware/authenticate');
+const requireAdmin = require('../middleware/requireAdmin');
 const { publicKey } = require('../config/keys');
 
 function identifyCustomer(req, res, next) {
@@ -86,6 +88,43 @@ router.get('/orders/mine', identifyCustomer, async (req, res, next) => {
         const orders = await Order.find({ userID: req.customer.user })
             .sort({ createdAt: -1 })
             .populate('productID', 'name price image');
+
+        res.json(orders);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/orders/:id/return', authenticate, async (req, res, next) => {
+    try {
+        const order = await Order.findById(req.params.id);
+        if (!order) return next(createError(404, 'Order not found'));
+
+        if (!order.userID || order.userID.toString() !== req.user.userId) {
+            return next(createError(403, 'You cannot return this order'));
+        }
+
+        if (order.status === 'returned') {
+            return next(createError(409, 'Order has already been returned'));
+        }
+
+        order.status = 'returned';
+        order.returnedAt = new Date();
+        await order.save();
+
+        await Product.findByIdAndUpdate(order.productID, { $inc: { stock: order.amount } });
+
+        res.json(order);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/orders/user/:userId', authenticate, requireAdmin, async (req, res, next) => {
+    try {
+        const orders = await Order.find({ userID: req.params.userId })
+            .sort({ createdAt: -1 })
+            .populate('productID', 'name price images');
 
         res.json(orders);
     } catch (err) {

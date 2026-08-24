@@ -8,9 +8,11 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn, ...props }) {
 
     const [email, setEmail] = React.useState(props.email)
     const [password, setPassword] = React.useState(props.password)
+    const [error, setError] = React.useState("")
     const navigate = useNavigate()
     const handleSubmit = e => {
         e.preventDefault()
+        setError("")
 
         axios.post(`${SERVER_HOST}/users/login`, {email, password})
             .then(res =>
@@ -21,7 +23,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn, ...props }) {
                 setIsLoggedIn(true)
                 navigate('/')
             })
-            .catch(err => console.log(`${err.response.data}\n${err}`))
+            .catch(err => setError(err.response?.data?.message || "Login failed. Please try again."))
     }
 
     return (
@@ -32,6 +34,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn, ...props }) {
                         handleSubmit={handleSubmit}
                         setEmail={setEmail}
                         setPassword={setPassword}
+                        error={error}
                     />
                 )}
             </div>

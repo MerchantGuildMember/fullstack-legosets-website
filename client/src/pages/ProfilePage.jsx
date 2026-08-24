@@ -91,6 +91,13 @@ export default function ProfilePage({ isLoggedIn, setIsLoggedIn }) {
             .then(res => setPhoto(res.data?.photo ?? dataUrl))
             .catch(err => { throw extractErrorMessage(err, "Couldn't update your photo. Please try again.") })
 
+    const returnOrder = (orderId) =>
+        axios.post(`${SERVER_HOST}/orders/${orderId}/return`, {}, authHeaders())
+            .then(res => {
+                setOrders(prev => prev.map(o => o._id === orderId ? res.data : o))
+            })
+            .catch(err => { throw extractErrorMessage(err, "Couldn't return this order. Please try again.") })
+
     const ordersLabel = ordersLoading
         ? "loading..."
         : ordersError
@@ -161,6 +168,7 @@ export default function ProfilePage({ isLoggedIn, setIsLoggedIn }) {
                                                     loading={ordersLoading}
                                                     error={ordersError}
                                                     onClose={close}
+                                                    onReturn={returnOrder}
                                                 />
                                             )}
                                         </div>

@@ -9,6 +9,8 @@ let ordersSchema = new mongoose.Schema(
         amount: { type: Number, required: true },
         address: { type: String, required: true },
         total_price: { type: Number, required: true },
+        status: { type: String, enum: ['placed', 'returned'], default: 'placed' },
+        returnedAt: { type: Date, default: null },
     },
     {
         collection: `orders`,

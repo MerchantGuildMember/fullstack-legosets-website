@@ -1,38 +1,41 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const createError = require('http-errors');
 const Cart = require('../models/cart');
 const Product = require('../models/products');
+const { publicKey } = require('../config/keys');
 
 function identifyCart(req, res, next) {
     let user = null;
     let guest = null;
 
     const authHeader = req.headers.authorization;
-    if (authHeader) {
+    const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+
+    if (token && token !== 'null') {
         try {
-            const token = authHeader.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET);
+            const decoded = jwt.verify(token, publicKey, { algorithms: ['RS256'] });
             user = decoded.userId;
         } catch (err) {
-            return res.status(401).json({ message: 'Invalid token' });
+            return next(createError(401, 'Invalid token'));
         }
     } else {
         guest = req.headers['x-guest-id'];
         if (!guest) {
-            return res.status(400).json({ message: 'Missing guest ID' });
+            return next(createError(400, 'Missing guest ID'));
         }
     }
 
     if (!user && !guest) {
-        return res.status(400).json({ message: 'Invalid identification' });
+        return next(createError(400, 'Invalid identification'));
     }
 
     req.cartFilter = user ? { user } : { guestId: guest };
     next();
 }
 
-router.get('/cart', identifyCart, async (req, res) => {
+router.get('/cart', identifyCart, async (req, res, next) => {
     try {
         const cart = await Cart.findOne(req.cartFilter).populate('items.product');
         if (!cart) return res.json({ items: [] });
@@ -49,15 +52,15 @@ router.get('/cart', identifyCart, async (req, res) => {
 
         res.json({ items });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        next(err);
     }
 });
 
-router.post('/cart/add', identifyCart, async (req, res) => {
+router.post('/cart/add', identifyCart, async (req, res, next) => {
     const { productId, quantity = 1 } = req.body;
     try {
         const product = await Product.findById(productId);
-        if (!product) return res.status(404).json({ message: 'Product not found' });
+        if (!product) return next(createError(404, 'Product not found'));
 
         let cart = await Cart.findOne(req.cartFilter);
         if (!cart) cart = new Cart({ ...req.cartFilter, items: [] });
@@ -72,36 +75,36 @@ router.post('/cart/add', identifyCart, async (req, res) => {
         await cart.save();
         res.json({ message: 'Added to cart' });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        next(err);
     }
 });
 
-router.put('/cart/:productId', identifyCart, async (req, res) => {
+router.put('/cart/:productId', identifyCart, async (req, res, next) => {
     try {
         const cart = await Cart.findOne(req.cartFilter);
-        if (!cart) return res.status(404).json({ message: 'Cart not found' });
+        if (!cart) return next(createError(404, 'Cart not found'));
 
         const item = cart.items.find(i => i.product.toString() === req.params.productId);
-        if (!item) return res.status(404).json({ message: 'Item not in cart' });
+        if (!item) return next(createError(404, 'Item not in cart'));
 
         item.quantity = req.body.quantity;
         await cart.save();
         res.json({ message: 'Updated' });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        next(err);
     }
 });
 
-router.delete('/cart/:productId', identifyCart, async (req, res) => {
+router.delete('/cart/:productId', identifyCart, async (req, res, next) => {
     try {
         const cart = await Cart.findOne(req.cartFilter);
-        if (!cart) return res.status(404).json({ message: 'Cart not found' });
+        if (!cart) return next(createError(404, 'Cart not found'));
 
         cart.items = cart.items.filter(i => i.product.toString() !== req.params.productId);
         await cart.save();
         res.json({ message: 'Removed' });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        next(err);
     }
 });
 
