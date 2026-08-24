@@ -54,7 +54,6 @@ $checkout-card: #fffdf8;
 $checkout-brick: #c23b2e;
 $checkout-brick-dark: #a12f24;
 $checkout-border: #d9cfb8;
-$checkout-error: #b3261e;
 
 %flex-center {
   display: flex;
@@ -122,6 +121,97 @@ $checkout-error: #b3261e;
 
 %text-mono {
   font-family: $font-mono;
+}
+
+%receipt-card {
+  position: relative;
+  background: $checkout-card;
+  border: 1px solid $checkout-border;
+  border-radius: 10px;
+  padding: 1.75rem 1.75rem 1.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 16px;
+    border-radius: 10px 10px 0 0;
+    background-image: radial-gradient(circle at 12px 6px, rgba($checkout-navy, 0.14) 4.5px, transparent 5px);
+    background-size: 28px 16px;
+    background-repeat: repeat-x;
+    background-position: 14px 0;
+  }
+}
+
+%summary-line {
+  @extend %flex-between;
+  gap: 1rem;
+  @extend %text-mono;
+  font-size: 0.85rem;
+  color: $checkout-ink-soft;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed $checkout-parchment-deep;
+
+  span:first-child {
+    font-family: $font-sans;
+    color: $checkout-ink;
+  }
+}
+
+%summary-total {
+  @extend %flex-between;
+  align-items: baseline;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid $checkout-navy;
+  @extend %text-serif;
+  font-weight: 700;
+  color: $checkout-navy;
+
+  span:last-child {
+    @extend %text-mono;
+    font-weight: 500;
+  }
+}
+
+%input-error {
+  border-color: $error-color;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+  }
+}
+
+%field-error {
+  color: $error-color;
+}
+
+%form-error {
+  padding: 0.6rem 0.75rem;
+  background: $error-bg;
+  border: 1px solid $error-border;
+  border-radius: 6px;
+  color: $error-text;
+  text-align: center;
+}
+
+%parchment-field {
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  color: $checkout-ink;
+  background: $white;
+  border: 1px solid $checkout-border;
+  border-radius: 6px;
+  padding: 0.65rem 0.75rem;
+
+  &:focus {
+    outline: none;
+    border-color: $checkout-navy;
+    box-shadow: 0 0 0 3px rgba($checkout-navy, 0.12);
+  }
 }
 
 * {
@@ -573,8 +663,7 @@ html {
     }
   }
 
-  .ac_buyButton,
-  button {
+  .ac_buyButton {
     position: relative;
     align-self: flex-start;
     margin-top: 0.5rem;
@@ -669,6 +758,12 @@ html {
   input[type="submit"] {
     @extend %submit-btn;
   }
+
+  .ac_formError {
+    @extend %form-error;
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+  }
 }
 
 @keyframes popintoexistence {
@@ -726,12 +821,7 @@ html {
     @extend %input-base;
 
     &.ac_inputError {
-      border-color: $error-color;
-
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
-      }
+      @extend %input-error;
     }
   }
 
@@ -740,20 +830,15 @@ html {
   }
 
   .ac_fieldError {
+    @extend %field-error;
     margin-top: -0.6rem;
-    color: $error-color;
     font-size: 0.85rem;
   }
 
   .ac_formError {
+    @extend %form-error;
     margin-top: 0.25rem;
-    padding: 0.6rem 0.75rem;
-    background: $error-bg;
-    border: 1px solid $error-border;
-    border-radius: 6px;
-    color: $error-text;
     font-size: 0.9rem;
-    text-align: center;
   }
 }
 
@@ -887,28 +972,18 @@ html {
   animation: panelFadeIn 0.3s ease 0.05s both;
 
   .ac_inputError {
-    border-color: $error-color;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
-    }
+    @extend %input-error;
   }
 
   .ac_fieldError {
+    @extend %field-error;
     margin-top: -0.2rem;
-    color: $error-color;
     font-size: 0.82rem;
   }
 
   .ac_formError {
-    padding: 0.6rem 0.75rem;
-    background: $error-bg;
-    border: 1px solid $error-border;
-    border-radius: 6px;
-    color: $error-text;
+    @extend %form-error;
     font-size: 0.88rem;
-    text-align: center;
   }
 }
 
@@ -1351,6 +1426,7 @@ html {
   margin: 0.5rem 0;
 
   button {
+    @extend %flex-center;
     width: 28px;
     height: 28px;
     border: none;
@@ -1359,6 +1435,7 @@ html {
     color: $white;
     cursor: pointer;
     font-size: 1.1rem;
+    padding: 0;
   }
 }
 
@@ -1468,23 +1545,11 @@ html {
 
   input,
   textarea {
-    font-family: $font-sans;
-    font-size: 0.95rem;
-    color: $checkout-ink;
-    background: $white;
-    border: 1px solid $checkout-border;
-    border-radius: 6px;
-    padding: 0.65rem 0.75rem;
+    @extend %parchment-field;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
     &::placeholder {
       color: #a8a196;
-    }
-
-    &:focus {
-      outline: none;
-      border-color: $checkout-navy;
-      box-shadow: 0 0 0 3px rgba($checkout-navy, 0.12);
     }
   }
 
@@ -1516,7 +1581,7 @@ html {
 }
 
 .ac_checkoutError {
-  color: $checkout-error;
+  color: $error-color;
   font-size: 0.85rem;
   font-weight: 500;
   margin: 0.2rem 0 0;
@@ -1550,25 +1615,7 @@ html {
 }
 
 .ac_checkoutSummary {
-  position: relative;
-  background: $checkout-card;
-  border: 1px solid $checkout-border;
-  border-radius: 10px;
-  padding: 1.75rem 1.75rem 1.5rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 16px;
-    border-radius: 10px 10px 0 0;
-    background-image: radial-gradient(circle at 12px 6px, rgba($checkout-navy, 0.14) 4.5px, transparent 5px);
-    background-size: 28px 16px;
-    background-repeat: repeat-x;
-    background-position: 14px 0;
-  }
+  @extend %receipt-card;
 
   h2 {
     @extend %text-serif;
@@ -1580,35 +1627,12 @@ html {
 }
 
 .ac_checkoutSummaryItem {
-  @extend %flex-between;
-  gap: 1rem;
-  @extend %text-mono;
-  font-size: 0.85rem;
-  color: $checkout-ink-soft;
-  padding: 0.4rem 0;
-  border-bottom: 1px dashed $checkout-parchment-deep;
-
-  span:first-child {
-    font-family: $font-sans;
-    color: $checkout-ink;
-  }
+  @extend %summary-line;
 }
 
 .ac_checkoutSummaryTotal {
-  @extend %flex-between;
-  align-items: baseline;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 2px solid $checkout-navy;
-  @extend %text-serif;
-  font-weight: 700;
+  @extend %summary-total;
   font-size: 1.3rem;
-  color: $checkout-navy;
-
-  span:last-child {
-    @extend %text-mono;
-    font-weight: 500;
-  }
 }
 .ac_confirmationPage {
   min-height: 100vh;
@@ -1668,28 +1692,10 @@ html {
 }
 
 .ac_confirmationSummary {
-  position: relative;
+  @extend %receipt-card;
   width: 100%;
-  background: $checkout-card;
-  border: 1px solid $checkout-border;
-  border-radius: 10px;
-  padding: 1.75rem 1.75rem 1.5rem;
   text-align: left;
   margin-bottom: 2rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 16px;
-    border-radius: 10px 10px 0 0;
-    background-image: radial-gradient(circle at 12px 6px, rgba($checkout-navy, 0.14) 4.5px, transparent 5px);
-    background-size: 28px 16px;
-    background-repeat: repeat-x;
-    background-position: 14px 0;
-  }
 
   h2 {
     @extend %text-serif;
@@ -1701,35 +1707,12 @@ html {
 }
 
 .ac_confirmationSummaryItem {
-  @extend %flex-between;
-  gap: 1rem;
-  @extend %text-mono;
-  font-size: 0.85rem;
-  color: $checkout-ink-soft;
-  padding: 0.4rem 0;
-  border-bottom: 1px dashed $checkout-parchment-deep;
-
-  span:first-child {
-    font-family: $font-sans;
-    color: $checkout-ink;
-  }
+  @extend %summary-line;
 }
 
 .ac_confirmationSummaryTotal {
-  @extend %flex-between;
-  align-items: baseline;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 2px solid $checkout-navy;
-  @extend %text-serif;
-  font-weight: 700;
+  @extend %summary-total;
   font-size: 1.2rem;
-  color: $checkout-navy;
-
-  span:last-child {
-    @extend %text-mono;
-    font-weight: 500;
-  }
 }
 
 .ac_confirmationAddress {
@@ -1762,5 +1745,331 @@ html {
 
   &:hover {
     opacity: 0.85;
+  }
+}
+
+.ac_adminPage {
+  min-height: 100vh;
+  background: $checkout-parchment;
+  font-family: $font-sans;
+  color: $checkout-ink;
+}
+
+.ac_adminContent {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+.ac_adminHeading {
+  @extend %text-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: $checkout-navy;
+  margin: 0 0 1.5rem;
+}
+
+.ac_adminTabs {
+  @extend %flex-align;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid $checkout-border;
+}
+
+.ac_adminTab {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.75rem 0.25rem;
+  margin-right: 1.5rem;
+  color: $checkout-ink-soft;
+  cursor: pointer;
+
+  &:hover {
+    color: $checkout-navy;
+  }
+}
+
+.ac_adminTabActive {
+  color: $checkout-navy;
+  border-bottom-color: $checkout-brick;
+}
+
+.ac_adminPanel {
+  background: $checkout-card;
+  border: 1px solid $checkout-border;
+  border-radius: 10px;
+  padding: 1.75rem 2rem;
+}
+
+.ac_adminPanelHeader {
+  @extend %flex-between;
+  margin-bottom: 1.25rem;
+
+  h2 {
+    @extend %text-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: $checkout-navy;
+  }
+}
+
+.ac_adminStatus {
+  color: $checkout-ink-soft;
+  font-size: 0.95rem;
+  padding: 1rem 0;
+}
+
+.ac_adminStatusError {
+  color: $error-color;
+}
+
+.ac_adminPrimaryButton {
+  font-family: $font-sans;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $white;
+  background: $checkout-brick;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.25rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: $checkout-brick-dark;
+  }
+
+  &:disabled {
+    background: #c9a89f;
+    cursor: not-allowed;
+  }
+}
+
+.ac_adminGhostButton {
+  font: inherit;
+  font-size: 0.9rem;
+  background: none;
+  border: 1px solid $checkout-border;
+  border-radius: 6px;
+  color: $checkout-ink-soft;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+
+  &:hover {
+    color: $checkout-ink;
+    border-color: $checkout-ink-soft;
+  }
+}
+
+.ac_adminSmallButton {
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: $checkout-parchment;
+  border: 1px solid $checkout-border;
+  border-radius: 5px;
+  color: $checkout-navy;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: $checkout-parchment-deep;
+  }
+
+  &:disabled {
+    color: $checkout-ink-soft;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.ac_adminSmallButtonDanger {
+  @extend .ac_adminSmallButton;
+  color: $error-color;
+  border-color: rgba($error-color, 0.4);
+
+  &:hover {
+    background: $error-bg;
+  }
+}
+
+.ac_adminTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  th {
+    text-align: left;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $checkout-ink-soft;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 2px solid $checkout-navy;
+  }
+
+  td {
+    padding: 0.7rem 0.75rem;
+    border-bottom: 1px solid $checkout-border;
+    vertical-align: middle;
+  }
+}
+
+.ac_adminThumb {
+  width: 56px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: $checkout-parchment;
+}
+
+.ac_adminStockCell {
+  @extend %flex-align;
+  gap: 0.5rem;
+}
+
+.ac_adminStockInput {
+  width: 4.5rem;
+  height: 2.1rem;
+  padding: 0 0.5rem;
+  border: 1px solid $checkout-border;
+  border-radius: 5px;
+  font: inherit;
+}
+
+.ac_adminRowActions {
+  @extend %flex-align;
+  gap: 0.5rem;
+}
+
+.ac_adminOrderHistory {
+  padding: 0.75rem 0.5rem 1rem;
+  background: $checkout-parchment;
+  border-radius: 6px;
+}
+
+.ac_adminOrderList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ac_adminOrderRow {
+  display: grid;
+  grid-template-columns: 2fr 0.6fr 0.8fr 1fr;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: $checkout-ink;
+  background: $checkout-card;
+  border: 1px solid $checkout-border;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+.ac_adminModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 36, 48, 0.55);
+  @extend %flex-center;
+  z-index: 100;
+  padding: 1.5rem;
+}
+
+.ac_adminModal {
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: $checkout-card;
+  border: 1px solid $checkout-border;
+  border-radius: 10px;
+  padding: 2rem 2.25rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  h2 {
+    @extend %text-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: $checkout-navy;
+    margin: 0 0 0.3rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $checkout-ink-soft;
+  }
+
+  input,
+  textarea {
+    @extend %parchment-field;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 4rem;
+  }
+}
+
+.ac_adminFormRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ac_adminModalActions {
+  @extend %flex-align;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 700px) {
+  .ac_adminPanelHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .ac_adminTable,
+  .ac_adminTable thead,
+  .ac_adminTable tbody,
+  .ac_adminTable th,
+  .ac_adminTable td,
+  .ac_adminTable tr {
+    display: block;
+  }
+
+  .ac_adminTable thead {
+    display: none;
+  }
+
+  .ac_adminTable tr {
+    border: 1px solid $checkout-border;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .ac_adminTable td {
+    border-bottom: none;
+    padding: 0.35rem 0;
+  }
+
+  .ac_adminOrderRow {
+    grid-template-columns: 1fr;
   }
 }
