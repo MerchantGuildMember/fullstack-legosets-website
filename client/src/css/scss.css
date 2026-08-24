@@ -1,0 +1,1803 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@500&display=swap");
+.ac_adminModalOverlay, .ac_confirmationBadge, .ac_quantityControls button, .ac_orderIcon, .ac_avatar, .ac_matchDot, .ac_reveal, .ac_profilePage, .ac_productPage .ac_productMedia, .ac_productPage .ac_productModule, .ac_filterToggle, .ac_eggon p, .ac_shoppingCart,
+.ac_profileHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ac_adminModalActions, .ac_adminRowActions, .ac_adminStockCell, .ac_adminTabs, .ac_cartSummary, .ac_quantityControls, .ac_cartItem, .ac_orderMeta, .ac_orderItem, .ac_ringButtonLabel, .ac_ringButton, .ac_secureButton, .ac_actions, .ac_inputWrap, .ac_rowRight, .ac_filterPriceRange, .ac_filterCheckbox, .ac_sortSelectWrapper, .ac_rightIcons, .ac_nav li a,
+.ac_nav li .ac_linkButton, .ac_nav {
+  display: flex;
+  align-items: center;
+}
+
+.ac_adminPanelHeader, .ac_orderTopRow, .ac_row, .ac_header, .ac_confirmationSummaryTotal, .ac_checkoutSummaryTotal, .ac_confirmationSummaryItem, .ac_checkoutSummaryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ac_confirmationContent, .ac_registerDiv, .ac_loginDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ac_registerForm input, .ac_loginForm input, .ac_filterPriceRange input {
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.ac_registerForm input::placeholder, .ac_loginForm input::placeholder, .ac_filterPriceRange input::placeholder {
+  color: #777;
+}
+
+.ac_registerForm input[type=submit], .ac_loginForm input[type=submit] {
+  margin-top: 0.5rem;
+  background: #1e2a3a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.ac_registerForm input[type=submit]:hover, .ac_loginForm input[type=submit]:hover {
+  background: #2c3e50;
+}
+
+.ac_filterToggle:hover, .ac_shoppingCart:hover,
+.ac_profileHolder:hover, .ac_nav li a:hover,
+.ac_nav li .ac_linkButton:hover {
+  opacity: 0.8;
+}
+
+.ac_cartItem, .ac_filterPanel {
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px #8f8f8f;
+}
+
+.ac_adminModal h2, .ac_adminPanelHeader h2, .ac_adminHeading, .ac_confirmationSummary h2, .ac_confirmationHeading, .ac_checkoutSummary h2, .ac_checkoutForm h2, .ac_checkoutHeading, .ac_avatar, .ac_greeting, .ac_registerHeading, .ac_registerDiv .ac_registerHeading, .ac_loginHeading, .ac_loginDiv .ac_loginHeading, .ac_productPage .ac_productInfo .ac_productTitle, .ac_confirmationSummaryTotal, .ac_checkoutSummaryTotal {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.ac_confirmationRef, .ac_orderTotal, .ac_stamp, .ac_rowTag, .ac_productPage .ac_buyButton, .ac_productPage .ac_productInfo .ac_specSheet .ac_specCell .ac_specValue, .ac_productPage .ac_productInfo .ac_priceTag .ac_priceTagValue, .ac_productPage .ac_productInfo .ac_productEyebrow, .ac_confirmationSummaryTotal span:last-child, .ac_checkoutSummaryTotal span:last-child, .ac_confirmationSummaryItem, .ac_checkoutSummaryItem {
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, "Courier New", monospace;
+}
+
+.ac_confirmationSummary, .ac_checkoutSummary {
+  position: relative;
+  background: #fffdf8;
+  border: 1px solid #d9cfb8;
+  border-radius: 10px;
+  padding: 1.75rem 1.75rem 1.5rem;
+}
+.ac_confirmationSummary::before, .ac_checkoutSummary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 16px;
+  border-radius: 10px 10px 0 0;
+  background-image: radial-gradient(circle at 12px 6px, rgba(27, 42, 65, 0.14) 4.5px, transparent 5px);
+  background-size: 28px 16px;
+  background-repeat: repeat-x;
+  background-position: 14px 0;
+}
+
+.ac_confirmationSummaryItem, .ac_checkoutSummaryItem {
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #565b68;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed #ddd2b8;
+}
+.ac_confirmationSummaryItem span:first-child, .ac_checkoutSummaryItem span:first-child {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1f2430;
+}
+
+.ac_confirmationSummaryTotal, .ac_checkoutSummaryTotal {
+  align-items: baseline;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #1b2a41;
+  font-weight: 700;
+  color: #1b2a41;
+}
+.ac_confirmationSummaryTotal span:last-child, .ac_checkoutSummaryTotal span:last-child {
+  font-weight: 500;
+}
+
+.ac_panel .ac_inputError, .ac_registerForm input.ac_inputError {
+  border-color: #D32F2F;
+}
+.ac_panel .ac_inputError:focus, .ac_registerForm input.ac_inputError:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+.ac_panel .ac_fieldError, .ac_registerForm .ac_fieldError {
+  color: #D32F2F;
+}
+
+.ac_panel .ac_formError, .ac_registerForm .ac_formError, .ac_loginForm .ac_formError {
+  padding: 0.6rem 0.75rem;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  color: #611a15;
+  text-align: center;
+}
+
+.ac_adminModal input,
+.ac_adminModal textarea, .ac_checkoutForm input,
+.ac_checkoutForm textarea {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  color: #1f2430;
+  background: #fff;
+  border: 1px solid #d9cfb8;
+  border-radius: 6px;
+  padding: 0.65rem 0.75rem;
+}
+.ac_adminModal input:focus,
+.ac_adminModal textarea:focus, .ac_checkoutForm input:focus,
+.ac_checkoutForm textarea:focus {
+  outline: none;
+  border-color: #1b2a41;
+  box-shadow: 0 0 0 3px rgba(27, 42, 65, 0.12);
+}
+
+* {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ac_contentPage,
+.ac_productPage,
+.ac_registerPage,
+.ac_loginPage,
+.ac_profilePage,
+html {
+  background-color: #ebe4d4;
+  height: 100%;
+}
+
+.ac_contentPage {
+  height: 100vh;
+}
+
+.ac_header {
+  position: relative;
+  height: 4.5rem;
+  padding: 0 1.5rem;
+  background-color: #232f3e;
+  font-size: 2.4rem;
+}
+
+.ac_nav {
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ac_nav li a,
+.ac_nav li .ac_linkButton {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ac_searchbar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(60vw, 800px);
+  font-size: 1rem;
+}
+
+.ac_searchInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.ac_searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #666;
+  pointer-events: none;
+}
+
+.ac_searchbar input {
+  width: 100%;
+  height: 40px;
+  padding-left: 48px;
+  padding-right: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+.ac_searchbar input::placeholder {
+  color: #777;
+}
+
+.ac_rightIcons {
+  justify-self: end;
+  gap: 1rem;
+}
+
+.ac_shoppingCart,
+.ac_profileHolder {
+  color: #fff;
+  text-decoration: none;
+}
+
+.ac_eggon p {
+  margin: 0.7rem 0 0;
+  font-size: 2.4rem;
+}
+
+.ac_filterSortBar {
+  max-width: 1600px;
+  margin: 1.5rem auto 0;
+  padding: 0 1.5rem;
+}
+
+.ac_filterSortRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.ac_filterToggle {
+  height: 2.5rem;
+  padding: 0 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #232f3e;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ac_sortSelectWrapper {
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #6F6F6F;
+  font-weight: 500;
+}
+
+.ac_sortSelect {
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.ac_clearFilters {
+  background: none;
+  border: none;
+  color: #555;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.ac_filterPanel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 1rem auto 0;
+  padding: 1.25rem 1.5rem;
+  background-color: #f8f8f8;
+  width: fit-content;
+}
+
+.ac_filterGroup {
+  min-width: 180px;
+}
+.ac_filterGroup h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6F6F6F;
+  margin-bottom: 0.6rem;
+}
+
+.ac_filterBrandList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.ac_filterEmpty {
+  font-size: 0.85rem;
+  color: #6F6F6F;
+}
+
+.ac_filterCheckbox {
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.ac_filterCheckbox input {
+  cursor: pointer;
+}
+
+.ac_filterPriceRange {
+  gap: 0.5rem;
+}
+.ac_filterPriceRange input {
+  width: 80px;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+}
+.ac_filterPriceRange span {
+  color: #6F6F6F;
+}
+
+.ac_productList {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(320px, 1fr));
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.ac_contentPage .ac_scrollSentinel {
+  height: 1px;
+}
+.ac_contentPage .ac_productListStatus {
+  text-align: center;
+  padding: 2rem 0;
+  color: #6F6F6F;
+  font-size: 0.95rem;
+}
+.ac_contentPage .ac_productModule {
+  margin: 0 1rem 2rem;
+  text-decoration: none;
+  color: black;
+  background-color: #f8f8f8;
+  box-shadow: 10px 5px 5px #8f8f8f;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0;
+  animation: productPopIn 0.5s forwards;
+  animation-delay: calc(var(--i, 0) * 0.06s);
+  border-radius: 15px;
+}
+.ac_contentPage .ac_productModule img {
+  border-radius: 15px;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+.ac_contentPage .ac_productModule:hover {
+  transform: scale(1.05);
+  transform-origin: bottom;
+  box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.8);
+}
+.ac_contentPage .ac_productInfo {
+  margin-left: 1.5rem;
+  font-size: 1.2rem;
+  padding: 0.5rem 0 1rem 0;
+}
+.ac_contentPage .ac_productCost {
+  padding: 0 0 0.5rem 0;
+}
+.ac_contentPage .ac_productTitle {
+  font-weight: bold;
+}
+
+@keyframes productPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.ac_productPage {
+  --ink: #1B2A4A;
+  --paper: #EDE6D6;
+  --paper-dark: #E0D7C2;
+  --yellow: #FFCC00;
+  --brick: #C8102E;
+  background: var(--paper);
+  min-height: 100vh;
+}
+.ac_productPage .ac_productContent {
+  display: flex;
+  flex-wrap: wrap;
+  width: min(920px, 92vw);
+  margin: 5rem auto;
+  background: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+.ac_productPage .ac_productMedia {
+  position: relative;
+  background: var(--ink);
+  flex: 1 1 320px;
+}
+.ac_productPage .ac_productMedia img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+}
+.ac_productPage .ac_productMedia .ac_studStrip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18px;
+  background-color: var(--ink);
+  background-image: radial-gradient(circle, var(--yellow) 6px, transparent 6.5px);
+  background-size: 28px 100%;
+  background-position: 14px center;
+  background-repeat: repeat-x;
+}
+.ac_productPage .ac_productInfo {
+  flex: 1 1 320px;
+  padding: 2.5rem 2.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.ac_productPage .ac_productInfo .ac_productEyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brick);
+}
+.ac_productPage .ac_productInfo .ac_productTitle {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+}
+.ac_productPage .ac_productInfo .ac_priceTag {
+  align-self: flex-start;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  padding: 0.3rem 0.9rem;
+  transform: rotate(-3deg);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.ac_productPage .ac_productInfo .ac_priceTag .ac_priceTagValue {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--brick);
+}
+.ac_productPage .ac_productInfo .ac_specSheet {
+  display: flex;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 0.75rem 0;
+}
+.ac_productPage .ac_productInfo .ac_specSheet .ac_specCell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-right: 1px solid #d8d0be;
+}
+.ac_productPage .ac_productInfo .ac_specSheet .ac_specCell:last-child {
+  border-right: none;
+}
+.ac_productPage .ac_productInfo .ac_specSheet .ac_specCell .ac_specValue {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.ac_productPage .ac_productInfo .ac_specSheet .ac_specCell .ac_specLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b6353;
+  margin-top: 0.15rem;
+}
+.ac_productPage .ac_productInfo .ac_aboutProduct .ac_aboutLabel {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b6353;
+  margin: 0 0 0.4rem;
+}
+.ac_productPage .ac_productInfo .ac_aboutProduct .ac_productDesc {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+}
+.ac_productPage .ac_buyButton {
+  position: relative;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  background: var(--brick);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #8a0b20;
+}
+.ac_productPage .ac_buyButton::before, .ac_productPage .ac_buyButton::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--brick);
+}
+.ac_productPage .ac_buyButton::before {
+  left: 18%;
+}
+.ac_productPage .ac_buyButton::after {
+  left: 62%;
+}
+.ac_productPage .ac_buyButton:hover {
+  background: #b30d29;
+}
+.ac_productPage .ac_buyButton:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #8a0b20;
+}
+@media (max-width: 640px) {
+  .ac_productPage .ac_productContent {
+    width: 94vw;
+    margin: 2rem auto;
+  }
+  .ac_productPage .ac_productMedia img {
+    height: 320px;
+  }
+}
+
+.ac_loginDiv {
+  min-height: 80vh;
+  gap: 1.5rem;
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: popintoexistence;
+}
+.ac_loginDiv .ac_loginHeading {
+  margin: 0;
+}
+.ac_loginDiv a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.ac_loginDiv a:hover {
+  text-decoration: underline;
+}
+
+.ac_loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 320px;
+  padding: 2.5rem 2rem;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+.ac_loginForm .ac_formError {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+@keyframes popintoexistence {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.ac_loginHeading {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.ac_registerDiv {
+  min-height: 80vh;
+  gap: 1.5rem;
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: popintoexistence;
+}
+.ac_registerDiv .ac_registerHeading {
+  margin: 0;
+}
+.ac_registerDiv a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.ac_registerDiv a:hover {
+  text-decoration: underline;
+}
+
+.ac_registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 320px;
+  padding: 2.5rem 2rem;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+.ac_registerForm .ac_fieldError {
+  margin-top: -0.6rem;
+  font-size: 0.85rem;
+}
+.ac_registerForm .ac_formError {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.ac_registerHeading {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.ac_scrollerWrapper {
+  border: black solid 3px;
+  background: #ffd8d8;
+}
+
+.ac_diamond {
+  border: black solid 3px;
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+.ac_profilePage {
+  min-height: 100vh;
+  width: 100%;
+  padding: 6rem 1.25rem;
+  box-sizing: border-box;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #17140F;
+}
+
+.ac_profilePageWrapper {
+  width: 100%;
+  max-width: 460px;
+}
+
+.ac_greeting {
+  font-weight: 700;
+  font-size: 2.1rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 2.75rem 0;
+  text-align: center;
+}
+
+.ac_greetingName {
+  color: #17140F;
+}
+
+.ac_profileMenu {
+  border-top: 1px solid #E2DCCF;
+}
+
+.ac_entry {
+  border-bottom: 1px solid #E2DCCF;
+}
+
+.ac_row {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1.1rem 0.15rem;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.ac_rowText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ac_rowLabel {
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.ac_rowCurrent {
+  font-size: 0.82rem;
+  color: #5C574F;
+}
+
+.ac_rowRight {
+  gap: 0.6rem;
+}
+
+.ac_rowTag {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8F2A1E;
+  border: 1px solid #8F2A1E;
+  border-radius: 3px;
+  padding: 0.15rem 0.4rem;
+  opacity: 0.85;
+}
+
+.ac_chevron {
+  transition: transform 0.25s ease;
+  color: #5C574F;
+  flex-shrink: 0;
+}
+
+.ac_chevronOpen {
+  transform: rotate(180deg);
+}
+
+.ac_outerPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ac_outerPanelOpen {
+  grid-template-rows: 1fr;
+}
+
+.ac_innerPanel {
+  overflow: hidden;
+}
+
+.ac_panel {
+  padding: 0.35rem 0.15rem 1.6rem 0.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: panelFadeIn 0.3s ease 0.05s both;
+}
+.ac_panel .ac_fieldError {
+  margin-top: -0.2rem;
+  font-size: 0.82rem;
+}
+.ac_panel .ac_formError {
+  font-size: 0.88rem;
+}
+
+@keyframes panelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ac_stamp {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8F2A1E;
+  border: 1.5px solid #8F2A1E;
+  border-radius: 3px;
+  padding: 0.3rem 0.55rem;
+  transform: rotate(-2deg);
+  margin-bottom: 0.15rem;
+}
+
+.ac_field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ac_fieldLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #5C574F;
+  font-weight: 600;
+}
+
+.ac_static {
+  font-size: 0.92rem;
+  color: #17140F;
+  background: #F4F1E9;
+  border: 1px solid #E2DCCF;
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+}
+
+.ac_inputWrap {
+  position: relative;
+}
+
+.ac_input {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 0.55rem 2.3rem 0.55rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #CFC7B6;
+  background: #fff;
+  color: #17140F;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.ac_input:focus {
+  border-color: #17140F;
+}
+
+.ac_inputMismatch {
+  border-color: #8F2A1E;
+}
+
+.ac_inputMatch {
+  border-color: #3B6650;
+}
+
+.ac_reveal {
+  position: absolute;
+  right: 0.55rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #5C574F;
+  padding: 0.2rem;
+}
+
+.ac_matchDot {
+  position: absolute;
+  right: 0.6rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.2s ease;
+}
+
+.ac_matchMatch {
+  background: #3B6650;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ac_matchMismatch {
+  background: #8F2A1E;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ac_matchText {
+  font-size: 0.76rem;
+  color: #5C574F;
+}
+
+.ac_matchTextMatch {
+  color: #3B6650;
+}
+
+.ac_matchTextMismatch {
+  color: #8F2A1E;
+}
+
+.ac_actions {
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.ac_ghostButton {
+  font: inherit;
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  color: #5C574F;
+  cursor: pointer;
+  padding: 0.5rem 0.6rem;
+}
+.ac_ghostButton:hover {
+  color: #17140F;
+}
+
+.ac_secureButton {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  gap: 0.35rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  border: none;
+  background: #E2DCCF;
+  color: #5C574F;
+  cursor: not-allowed;
+  transition: all 0.2s ease;
+}
+
+.ac_secureButtonReady {
+  background: #8F2A1E;
+  color: #fff;
+  cursor: pointer;
+}
+
+.ac_secureButtonSaved {
+  background: #3B6650;
+}
+
+.ac_ringButton {
+  position: relative;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.55rem;
+  border-radius: 999px;
+  border: none;
+  background: #E2DCCF;
+  color: #5C574F;
+  cursor: not-allowed;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ac_ringButtonReady {
+  background: #17140F;
+  color: #fff;
+  cursor: pointer;
+}
+
+.ac_ringButtonSaved {
+  background: #3B6650;
+  color: #fff;
+}
+
+.ac_ringSvg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+
+.ac_ringTrack {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.12);
+  stroke-width: 3;
+}
+
+.ac_ringButtonReady .ac_ringTrack,
+.ac_ringButtonSaved .ac_ringTrack {
+  stroke: rgba(255, 255, 255, 0.25);
+}
+
+.ac_ringProgress {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.ac_ringButtonLabel {
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.ac_photoRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.ac_photoCol {
+  align-items: center;
+}
+
+.ac_photoArrow {
+  color: #CFC7B6;
+  font-size: 1.2rem;
+  padding-bottom: 0.9rem;
+}
+
+.ac_avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+
+.ac_avatarOld {
+  background: #F4F1E9;
+  border: 1px solid #E2DCCF;
+  color: #5C574F;
+}
+
+.ac_avatarNew {
+  background: #fff;
+  border: 1.5px dashed #CFC7B6;
+  color: #5C574F;
+  cursor: pointer;
+  padding: 0;
+}
+.ac_avatarNew img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ac_orderStatus {
+  font-size: 0.9rem;
+  color: #5C574F;
+  background: #F4F1E9;
+  border: 1px solid #E2DCCF;
+  border-radius: 6px;
+  padding: 0.75rem 0.9rem;
+  text-align: center;
+}
+
+.ac_orderStatusError {
+  color: #8F2A1E;
+  border-color: rgba(143, 42, 30, 0.4);
+}
+
+.ac_orderList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.ac_orderItem {
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid #E2DCCF;
+  border-radius: 8px;
+  background: #FCFBF8;
+}
+
+.ac_orderIcon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F4F1E9;
+  color: #5C574F;
+}
+
+.ac_orderDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.ac_orderTopRow {
+  gap: 0.5rem;
+}
+
+.ac_orderProduct {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #17140F;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac_orderTotal {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #17140F;
+  flex-shrink: 0;
+}
+
+.ac_orderMeta {
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  color: #5C574F;
+}
+
+.ac_orderAddress {
+  font-size: 0.8rem;
+  color: #5C574F;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .ac_greeting {
+    font-size: 1.7rem;
+  }
+}
+.ac_blur {
+  filter: blur(500px);
+}
+
+.ac_cartPage {
+  background-color: #ebe4d4;
+  min-height: 100vh;
+}
+
+.ac_cartContent {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.ac_cartHeading {
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.ac_cartMessage {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.ac_cartList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ac_cartItem {
+  gap: 1.5rem;
+  background-color: #f8f8f8;
+  padding: 1rem;
+}
+.ac_cartItem img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.ac_cartItemInfo {
+  flex: 1;
+}
+
+.ac_cartItemTitle {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.ac_cartItemPrice {
+  color: #444;
+  margin: 0.3rem 0;
+}
+
+.ac_quantityControls {
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+.ac_quantityControls button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background-color: #232f3e;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0;
+}
+
+.ac_removeButton {
+  background: none;
+  border: none;
+  color: #b00020;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 0.95rem;
+}
+
+.ac_cartSummary {
+  margin-top: 2rem;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+.ac_cartTotal {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.ac_checkoutButton {
+  background-color: #232f3e;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.ac_checkoutButton:hover {
+  opacity: 0.85;
+}
+
+.ac_checkoutPage {
+  min-height: 100vh;
+  background: #ece4d3;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1f2430;
+}
+
+.ac_checkoutContent {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+.ac_checkoutHeading {
+  font-weight: 700;
+  font-size: 2.25rem;
+  letter-spacing: -0.01em;
+  color: #1b2a41;
+  margin: 0 0 2rem;
+}
+
+.ac_checkoutMessage {
+  font-size: 1.05rem;
+  color: #565b68;
+}
+
+.ac_checkoutLayout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 780px) {
+  .ac_checkoutLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ac_checkoutForm {
+  background: #fffdf8;
+  border: 1px solid #d9cfb8;
+  border-radius: 10px;
+  padding: 2rem 2.25rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.ac_checkoutForm h2 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1b2a41;
+  margin: 1.4rem 0 0.2rem;
+}
+.ac_checkoutForm h2:first-child {
+  margin-top: 0;
+}
+.ac_checkoutForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #565b68;
+}
+.ac_checkoutForm input,
+.ac_checkoutForm textarea {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ac_checkoutForm input::placeholder,
+.ac_checkoutForm textarea::placeholder {
+  color: #a8a196;
+}
+.ac_checkoutForm textarea {
+  resize: vertical;
+  min-height: 4.5rem;
+}
+
+.ac_checkoutAddress {
+  width: 100%;
+}
+
+.ac_checkoutMockNotice {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #565b68;
+  background: rgba(27, 42, 65, 0.05);
+  border-left: 3px solid #1b2a41;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0 4px 4px 0;
+  margin: 0 0 0.4rem;
+}
+
+.ac_checkoutCardRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.ac_checkoutError {
+  color: #D32F2F;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0.2rem 0 0;
+}
+
+.ac_checkoutSubmit {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  background: #c23b2e;
+  border: none;
+  border-radius: 6px;
+  padding: 0.85rem 1.25rem;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+.ac_checkoutSubmit:hover:not(:disabled) {
+  background: #a12f24;
+}
+.ac_checkoutSubmit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.ac_checkoutSubmit:disabled {
+  background: #c9a89f;
+  cursor: not-allowed;
+}
+
+.ac_checkoutSummary h2 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1b2a41;
+  margin: 0.75rem 0 1.1rem;
+}
+
+.ac_checkoutSummaryTotal {
+  font-size: 1.3rem;
+}
+
+.ac_confirmationPage {
+  min-height: 100vh;
+  background: #ece4d3;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1f2430;
+}
+
+.ac_confirmationContent {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 5rem;
+  text-align: center;
+}
+
+.ac_confirmationBadge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #3B6650;
+  color: #fff;
+  font-size: 1.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.ac_confirmationHeading {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1b2a41;
+  margin: 0 0 0.6rem;
+}
+
+.ac_confirmationSubheading {
+  font-size: 1rem;
+  color: #565b68;
+  line-height: 1.5;
+  margin: 0 0 2rem;
+  max-width: 480px;
+}
+
+.ac_confirmationRef {
+  font-weight: 500;
+  color: #1b2a41;
+  background: rgba(27, 42, 65, 0.08);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.ac_confirmationMessage {
+  font-size: 1.05rem;
+  color: #565b68;
+  margin-bottom: 1.5rem;
+}
+
+.ac_confirmationSummary {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.ac_confirmationSummary h2 {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1b2a41;
+  margin: 0.75rem 0 1rem;
+}
+
+.ac_confirmationSummaryTotal {
+  font-size: 1.2rem;
+}
+
+.ac_confirmationAddress {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid #d9cfb8;
+}
+.ac_confirmationAddress h2 {
+  margin-bottom: 0.4rem;
+}
+.ac_confirmationAddress p {
+  font-size: 0.9rem;
+  color: #565b68;
+  white-space: pre-line;
+}
+
+.ac_confirmationContinue {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  background: #1b2a41;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.ac_confirmationContinue:hover {
+  opacity: 0.85;
+}
+
+.ac_adminPage {
+  min-height: 100vh;
+  background: #ece4d3;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1f2430;
+}
+
+.ac_adminContent {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+.ac_adminHeading {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1b2a41;
+  margin: 0 0 1.5rem;
+}
+
+.ac_adminTabs {
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #d9cfb8;
+}
+
+.ac_adminTab {
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.75rem 0.25rem;
+  margin-right: 1.5rem;
+  color: #565b68;
+  cursor: pointer;
+}
+.ac_adminTab:hover {
+  color: #1b2a41;
+}
+
+.ac_adminTabActive {
+  color: #1b2a41;
+  border-bottom-color: #c23b2e;
+}
+
+.ac_adminPanel {
+  background: #fffdf8;
+  border: 1px solid #d9cfb8;
+  border-radius: 10px;
+  padding: 1.75rem 2rem;
+}
+
+.ac_adminPanelHeader {
+  margin-bottom: 1.25rem;
+}
+.ac_adminPanelHeader h2 {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #1b2a41;
+}
+
+.ac_adminStatus {
+  color: #565b68;
+  font-size: 0.95rem;
+  padding: 1rem 0;
+}
+
+.ac_adminStatusError {
+  color: #D32F2F;
+}
+
+.ac_adminPrimaryButton {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+  background: #c23b2e;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.25rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.ac_adminPrimaryButton:hover:not(:disabled) {
+  background: #a12f24;
+}
+.ac_adminPrimaryButton:disabled {
+  background: #c9a89f;
+  cursor: not-allowed;
+}
+
+.ac_adminGhostButton {
+  font: inherit;
+  font-size: 0.9rem;
+  background: none;
+  border: 1px solid #d9cfb8;
+  border-radius: 6px;
+  color: #565b68;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+}
+.ac_adminGhostButton:hover {
+  color: #1f2430;
+  border-color: #565b68;
+}
+
+.ac_adminSmallButton, .ac_adminSmallButtonDanger {
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: #ece4d3;
+  border: 1px solid #d9cfb8;
+  border-radius: 5px;
+  color: #1b2a41;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+.ac_adminSmallButton:hover:not(:disabled), .ac_adminSmallButtonDanger:hover:not(:disabled) {
+  background: #ddd2b8;
+}
+.ac_adminSmallButton:disabled, .ac_adminSmallButtonDanger:disabled {
+  color: #565b68;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ac_adminSmallButtonDanger {
+  color: #D32F2F;
+  border-color: rgba(211, 47, 47, 0.4);
+}
+.ac_adminSmallButtonDanger:hover {
+  background: #fdecea;
+}
+
+.ac_adminTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.ac_adminTable th {
+  text-align: left;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #565b68;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 2px solid #1b2a41;
+}
+.ac_adminTable td {
+  padding: 0.7rem 0.75rem;
+  border-bottom: 1px solid #d9cfb8;
+  vertical-align: middle;
+}
+
+.ac_adminThumb {
+  width: 56px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #ece4d3;
+}
+
+.ac_adminStockCell {
+  gap: 0.5rem;
+}
+
+.ac_adminStockInput {
+  width: 4.5rem;
+  height: 2.1rem;
+  padding: 0 0.5rem;
+  border: 1px solid #d9cfb8;
+  border-radius: 5px;
+  font: inherit;
+}
+
+.ac_adminRowActions {
+  gap: 0.5rem;
+}
+
+.ac_adminOrderHistory {
+  padding: 0.75rem 0.5rem 1rem;
+  background: #ece4d3;
+  border-radius: 6px;
+}
+
+.ac_adminOrderList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ac_adminOrderRow {
+  display: grid;
+  grid-template-columns: 2fr 0.6fr 0.8fr 1fr;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #1f2430;
+  background: #fffdf8;
+  border: 1px solid #d9cfb8;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+.ac_adminModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 36, 48, 0.55);
+  z-index: 100;
+  padding: 1.5rem;
+}
+
+.ac_adminModal {
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fffdf8;
+  border: 1px solid #d9cfb8;
+  border-radius: 10px;
+  padding: 2rem 2.25rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.ac_adminModal h2 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1b2a41;
+  margin: 0 0 0.3rem;
+}
+.ac_adminModal label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #565b68;
+}
+.ac_adminModal textarea {
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.ac_adminFormRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 480px) {
+  .ac_adminFormRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ac_adminModalActions {
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 700px) {
+  .ac_adminPanelHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .ac_adminTable,
+  .ac_adminTable thead,
+  .ac_adminTable tbody,
+  .ac_adminTable th,
+  .ac_adminTable td,
+  .ac_adminTable tr {
+    display: block;
+  }
+  .ac_adminTable thead {
+    display: none;
+  }
+  .ac_adminTable tr {
+    border: 1px solid #d9cfb8;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+  .ac_adminTable td {
+    border-bottom: none;
+    padding: 0.35rem 0;
+  }
+  .ac_adminOrderRow {
+    grid-template-columns: 1fr;
+  }
+}
