@@ -7,6 +7,8 @@ const express = require("express");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
 const User = require('./models/users');
+const Product = require('./models/products');
+const productsSeed = require('./products-seed.json');
 
 const productRouter = require("./routes/products");
 const userRouter = require("./routes/users");
@@ -49,7 +51,19 @@ async function seedAdmin() {
     }
 }
 
+async function seedProducts() {
+    const existingCount = await Product.countDocuments();
+
+    if (existingCount === 0) {
+        await Product.insertMany(productsSeed);
+        console.log(`Seeded ${productsSeed.length} products`);
+    } else {
+        console.log("Products already seeded");
+    }
+}
+
 seedAdmin();
+seedProducts();
 
 app.listen(5000, () => {
     console.log("Server running on port 5000");
