@@ -244,12 +244,29 @@ html {
   font-size: $headerSize;
 }
 
+.ac_menuToggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.ac_navOuter,
+.ac_navInner {
+  display: contents;
+}
+
 .ac_nav {
   @extend %flex-align;
   gap: 1rem;
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.ac_navMobileOnly {
+  display: none;
 }
 
 .ac_nav li a,
@@ -266,16 +283,27 @@ html {
 }
 
 .ac_searchbar {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(60vw, 800px);
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
   font-size: 1rem;
+}
+
+.ac_searchToggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $white;
+  padding: 0.5rem;
+  flex-shrink: 0;
 }
 
 .ac_searchInputWrapper {
   position: relative;
   width: 100%;
+  max-width: 800px;
 }
 
 .ac_searchIcon {
@@ -316,6 +344,85 @@ html {
   color: $white;
   text-decoration: none;
   @extend %opacity-hover;
+}
+
+@media (max-width: 768px) {
+  .ac_menuToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ac_navOuter {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: $primary-dark;
+    z-index: 10;
+  }
+
+  .ac_navOuterOpen {
+    grid-template-rows: 1fr;
+  }
+
+  .ac_navInner {
+    display: block;
+    overflow: hidden;
+  }
+
+  .ac_nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 0;
+  }
+
+  .ac_nav li a,
+  .ac_nav li .ac_linkButton {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .ac_navMobileOnly {
+    display: block;
+  }
+
+  .ac_searchbar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: flex-grow 0.25s ease;
+  }
+
+  .ac_searchToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ac_searchInputWrapper {
+    width: 0;
+    max-width: none;
+    overflow: hidden;
+    transition: width 0.25s ease;
+  }
+
+  .ac_searchbarOpen {
+    flex: 1 1 auto;
+  }
+
+  .ac_searchbarOpen .ac_searchInputWrapper {
+    width: 100%;
+  }
+
+  .ac_rightIcons {
+    display: none;
+  }
 }
 
 .ac_eggon p {
@@ -447,11 +554,12 @@ html {
 
 .ac_productList {
   display: grid;
-  grid-template-columns: repeat(5, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 20px;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  max-width: 1680px;
+  margin: 2rem auto 0;
 }
 
 .ac_contentPage {

@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
-import { Search } from "lucide-react";
+import React from 'react';
+import { Search, X } from "lucide-react";
 
-export default function Searchbar({ search, setSearch }) {
+export default function Searchbar({ search, setSearch, isOpen, onToggle }) {
 
     return (
-        <div className="ac_searchbar">
+        <div className={`ac_searchbar${isOpen ? ' ac_searchbarOpen' : ''}`}>
+            <button type="button" className="ac_searchToggle" onClick={onToggle} aria-label="Toggle search">
+                {isOpen ? <X size={28} /> : <Search size={28} />}
+            </button>
             <div className="ac_searchInputWrapper">
                 <Search className="ac_searchIcon" size={18} />
                 <input
